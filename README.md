@@ -1,2 +1,2 @@
 # Quick-Trading
-Affordable Trading here
+quick access to trade
