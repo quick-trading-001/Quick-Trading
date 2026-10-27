@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>QUICK TRADING</title>
+<style>
+body{background:#0f0f0f;color:#fff;font-family:Arial;text-align:center;padding:20px;margin:0}
+.header{color:#ff3b3b;font-size:30px;font-weight:bold;margin-top:30px}
+.btn{background:#ff3b3b;color:white;padding:16px 32px;border-radius:10px;text-decoration:none;display:inline-block;margin-top:20px;font-weight:bold;font-size:18px}
+.box{background:#1a1a1a;padding:20px;border-radius:12px;margin-top:30px}
+</style>
+</head>
+<body>
+<div class="header">QUICK TRADING</div>
+<h2>Affordable Trading Here</h2>
+<p>Trade Forex, Synthetics & Crypto - Powered by Deriv</p>
+<a class="btn" href="https://oauth.deriv.com/oauth2/authorize?app_id=34MDQBDeBSpMMiB6OHDSs&l=en&signup_device=desktop&brand=deriv">Login with Deriv</a>
+<div class="box">
+<p>App ID: 34MDQBDeBSpMMiB6OHDSs</p>
+<p>Markup: 3% - Your Affiliate Income</p>
+<p>Link: quick-trading.vercel.app</p>
+</div>
+</body>
+                                                        </html>
