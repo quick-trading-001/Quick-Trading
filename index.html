@@ -2,46 +2,125 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QUICK TRADING - Affordable Trading</title>
+<title>QUICK TRADING - Official</title>
 <style>
-body{background:#000;color:#fff;font-family:Arial;text-align:center;margin:0;padding:20px}
-h1{color:#ff0000;font-size:32px;margin-top:30px;letter-spacing:1px}
-.card{background:#111;border:1px solid #333;padding:20px;border-radius:12px;margin:15px auto;max-width:360px}
-.btn{background:#ff0000;color:#fff;padding:14px 28px;border-radius:8px;text-decoration:none;display:inline-block;font-weight:bold;margin:8px}
+body{background:#000;color:#fff;font-family:Arial;text-align:center;margin:0;padding:15px}
+.logo{width:90px;height:90px;background:linear-gradient(135deg,#ff0000,#ff6a00);border-radius:50%;margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:bold;box-shadow:0 0 20px #ff0000}
+h1{color:#ff0000;font-size:30px;margin:5px 0;letter-spacing:1px}
+.card{background:#111;border:1px solid #333;padding:18px;border-radius:14px;margin:12px auto;max-width:380px;box-shadow:0 4px 12px rgba(255,0,0,0.1)}
+.btn{background:#ff0000;color:#fff;padding:13px 26px;border-radius:8px;text-decoration:none;display:inline-block;font-weight:bold;margin:6px;border:none;cursor:pointer}
 .price{color:#ff0000;font-size:26px;font-weight:bold}
 .green{background:#25D366}
 .yellow{color:#ffeb3b;font-weight:bold}
-.small{color:#aaa;font-size:12px}
+#botPanel{display:none;background:#0a0a0a;border:2px solid #ff0000;padding:18px;border-radius:14px;max-width:380px;margin:15px auto}
+input,select{background:#222;color:#fff;border:1px solid #444;padding:10px;border-radius:6px;width:85%;margin:6px}
+.small{color:#aaa;font-size:11px}
+.log{background:#000;color:#0f0;padding:10px;font-size:11px;height:110px;overflow:auto;text-align:left;border:1px solid #333;margin-top:10px;border-radius:6px}
+.poster{background:linear-gradient(135deg,#111,#220000);border:1px dashed #ff0000;padding:15px;border-radius:12px;max-width:380px;margin:15px auto}
 </style>
 </head>
 <body>
-<h1>QUICK TRADING</h1>
-<p>Affordable Trading Here - Quick access to trade</p>
-<a class="btn" href="https://oauth.deriv.com/oauth2/authorize?app_id=108800">LOGIN WITH DERIV</a>
 
-<div class="card">
-<h3>STARTER</h3><p class="price">KES 500</p><p>Daily Signals + Basics + Group</p>
-<a class="btn green" href="https://wa.me/254745266488?text=Habari%20Quick%20Trading%20Nahitaji%20STARTER%20KES500">Buy via WhatsApp</a>
+<div class="logo">QT</div>
+<h1>QUICK TRADING</h1>
+<p style="color:#ff6a00;font-weight:bold">Affordable Trading Here - Quick Access To Trade</p>
+<p id="userInfo" class="small">Login kuona Bot & Balance yako</p>
+
+<div id="loginDiv">
+<a class="btn" href="https://oauth.deriv.com/oauth2/authorize?app_id=108800">🔐 LOGIN WITH DERIV</a>
+</div>
+
+<div id="botPanel">
+<h3 style="color:#ff0000">🤖 QUICK TRADING BOT PRO</h3>
+<p>Balance: <span id="balance" class="yellow">Loading...</span> | Profit: <span id="profit" style="color:#0f0">0</span></p>
+<label>Market: <select id="market"><option value="R_100">Volatility 100 Index</option><option value="R_50">Volatility 50</option><option value="R_25">Volatility 25</option><option value="1HZ100V">Volatility 100 (1s)</option></select></label><br>
+<label>Stake ($): <input id="stake" type="number" value="1" step="0.5"></label><br>
+<label>Strategy: <select id="strategy"><option value="OVER">Digit OVER 4 - Safe</option><option value="UNDER">Digit UNDER 4 - Safe</option><option value="EVEN">Digit EVEN</option><option value="ODD">Digit ODD</option></select></label><br>
+<button class="btn" onclick="startBot()">START BOT ▶️</button>
+<button class="btn" style="background:#555" onclick="stopBot()">STOP ⏹️</button>
+<div class="log" id="log">Bot ready... Login with demo first!\n</div>
+<p class="small">⚠️ Tumia DEMO kwanza. Bot inafanya trade auto kila 7.5 sec.<br><a href="#" onclick="logout()" style="color:#ff0000">Logout</a></p>
+</div>
+
+<div class="poster">
+<h3 style="color:#ffeb3b">🔥 OFFER YA LEO!</h3>
+<p>Anza Trading na <b>KES 500 tu!</b><br>Bot + Signals + Mentorship</p>
+<a class="btn yellow" style="background:#ffeb3b;color:#000" href="https://quick-trading.vercel.app">quick-trading.vercel.app</a>
+<p class="small">Lipa Pochi: 0745266488 - QUICK TRADING</p>
 </div>
 
 <div class="card">
-<h3>PRO - Popular 🔥</h3><p class="price">KES 1500</p><p>VIP Signals + Bot + Mentorship</p>
-<a class="btn green" href="https://wa.me/254745266488?text=Habari%20Quick%20Trading%20Nahitaji%20PRO%20KES1500">Buy via WhatsApp</a>
+<h3>STARTER PACKAGE</h3><p class="price">KES 500</p><p>✅ Daily Signals<br>✅ Basics Course<br>✅ WhatsApp Group</p>
+<a class="btn green" href="https://wa.me/254745266488?text=Habari%20Quick%20Trading%20Nahitaji%20STARTER%20KES500%20Niko%20tayari%20kulipa%20Pochi">Buy STARTER - WhatsApp</a>
+</div>
+
+<div class="card" style="border-color:#ff0000;transform:scale(1.03)">
+<h3>🔥 PRO PACKAGE - Popular</h3><p class="price">KES 1500</p><p>✅ VIP Signals<br>✅ BOT PRO Ndani ya Site<br>✅ 1-on-1 Mentorship<br>✅ Lifetime Updates</p>
+<a class="btn green" href="https://wa.me/254745266488?text=Habari%20Quick%20Trading%20Nahitaji%20PRO%20KES1500%20Niko%20tayari%20kulipa%20Pochi">Buy PRO - WhatsApp</a>
 </div>
 
 <div class="card" style="border-color:#25D366">
 <h3>💰 LIPA NA POCHI LA BIASHARA</h3>
-<p>1. M-PESA > Send Money<br>
-Number: <span class="yellow">0745266488</span><br>
-Jina: <span class="yellow">QUICK TRADING</span></p>
-<p>2. Weka Amount: 500 au 1500<br>
-3. Weka PIN</p>
-<p><b>Baada ya kulipa:</b><br>
-Bonyeza hapa kutuma screenshot</p>
-<a class="btn green" href="https://wa.me/254745266488?text=Nimelipa%20via%20Pochi%20Tafadhali%20Confirm%20KES...">Tuma Screenshot Kwa WhatsApp</a>
-<p class="small">Pesa inaenda kwa Pochi ya Quick Trading - Salama 100%</p>
+<p>1️⃣ M-PESA > Send Money<br>Number: <span class="yellow">0745266488</span><br>Jina: <span class="yellow">QUICK TRADING</span></p>
+<p>2️⃣ Amount: 500 au 1500<br>3️⃣ PIN > Send</p>
+<a class="btn green" href="https://wa.me/254745266488?text=Nimelipa%20via%20Pochi%20KES%20...%20Tafadhali%20Confirm%20Quick%20Trading">📸 Tuma Screenshot Hapa</a>
+<p class="small">Salama 100% - Pochi ya Quick Trading<br>Joyce Kemosi</p>
 </div>
 
-<p style="margin-top:30px;color:#666">© Quick Trading 2026 | Joyce Kemosi<br>0745266488</p>
+<p style="margin-top:25px;color:#555">© Quick Trading 2026 | Joyce Kemosi<br>0745266488 | All Rights Reserved</p>
+
+<script>
+let token=null, ws=null, running=false, totalProfit=0, contractId=null;
+const urlParams = new URLSearchParams(window.location.search);
+if(urlParams.has('token1')){token=urlParams.get('token1'); localStorage.setItem('deriv_token', token); window.history.replaceState({}, document.title, "/");}
+else{token=localStorage.getItem('deriv_token');}
+if(token){
+ document.getElementById('loginDiv').style.display='none';
+ document.getElementById('botPanel').style.display='block';
+ document.getElementById('userInfo').innerHTML='✅ Logged In - Bot Ready | <a href="#" onclick="logout()" style="color:#ff0000">Logout</a>';
+ connectDeriv();
+}
+function connectDeriv(){
+ ws=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=108800');
+ ws.onopen=()=>ws.send(JSON.stringify({authorize:token}));
+ ws.onmessage=(msg)=>{
+  let data=JSON.parse(msg.data);
+  if(data.error){log('❌ ERROR: '+data.error.message); if(data.error.code=='InvalidToken'){logout();} return;}
+  if(data.authorize){ws.send(JSON.stringify({balance:1, subscribe:1})); log('✅ '+data.authorize.loginid+' Connected');}
+  if(data.balance){document.getElementById('balance').innerText=data.balance.balance.toFixed(2)+' '+data.balance.currency;}
+  if(data.buy){
+    contractId=data.buy.contract_id;
+    log('📈 Trade Placed: '+data.buy.longcode.slice(0,70));
+    ws.send(JSON.stringify({proposal_open_contract:1, contract_id: contractId, subscribe:1}));
+  }
+  if(data.proposal_open_contract && data.proposal_open_contract.is_sold){
+   let c=data.proposal_open_contract; totalProfit+=c.profit; document.getElementById('profit').innerText=totalProfit.toFixed(2);
+   log((c.profit>0?'WIN ✅ +'+c.profit.toFixed(2):'LOSS ❌ '+c.profit.toFixed(2)));
+  }
+ }
+ ws.onerror=()=>log('❌ Connection Error - Jaribu tena');
+}
+function log(t){let l=document.getElementById('log'); l.innerText+=t+'\n'; l.scrollTop=l.scrollHeight;}
+function startBot(){
+ if(!ws){log('Login kwanza!'); return;}
+ if(running) return; running=true; log('🚀 Bot STARTED - Trading...');
+ tradeLoop();
+}
+function stopBot(){running=false; log('⏹️ Bot STOPPED - Total Profit: '+totalProfit.toFixed(2));}
+function logout(){localStorage.removeItem('deriv_token'); location.href='/';}
+function tradeLoop(){
+ if(!running) return;
+ let market=document.getElementById('market').value;
+ let stake=parseFloat(document.getElementById('stake').value);
+ let strat=document.getElementById('strategy').value;
+ if(isNaN(stake)||stake<0.35){log('❌ Stake lazima iwe 0.35 au zaidi'); stopBot(); return;}
+ let type = strat=='OVER'?'DIGITOVER': strat=='UNDER'?'DIGITUNDER': strat=='EVEN'?'DIGITEVEN':'DIGITODD';
+ let barrier = (type=='DIGITOVER'||type=='DIGITUNDER')?4:undefined;
+ let params={amount:stake,basis:'stake',contract_type:type,currency:'USD',duration:1,duration_unit:'t',symbol:market};
+ if(barrier!==undefined) params.barrier=barrier;
+ ws.send(JSON.stringify({buy:1,price:stake,parameters:params}));
+ setTimeout(()=>{if(running) tradeLoop()}, 7500);
+}
+</script>
 </body>
-                                                                        </html>
+                                                                                        </html>                                                                                                                                                                                                              </html>
