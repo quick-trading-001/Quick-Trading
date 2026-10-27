@@ -1,17 +1,1 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUICK TRADING</title>
-</head>
-<body style="background:#0f0f0f;color:white;text-align:center;font-family:Arial;padding:40px;">
-<h1 style="color:#ff3b3b;font-size:40px;">QUICK TRADING</h1>
-<h2>Affordable Trading Here</h2>
-<p>Forex, Synthetics & Crypto - Powered by Deriv</p>
-<br>
-<a href="https://oauth.deriv.com/oauth2/authorize?app_id=34MDQBDeBSpMMiB6OHDSs" style="background:#ff3b3b;color:white;padding:18px 35px;border-radius:12px;text-decoration:none;font-weight:bold;font-size:20px;display:inline-block;">Login with Deriv</a>
-<br><br><br>
-<p>App ID: 34MDQBDeBSpMMiB6OHDSs | Markup 3%</p>
-</body>
-</html>
+<html><body style="background:black;color:white;text-align:center;padding-top:100px"><h1 style="color:red">QUICK TRADING WORKS!</h1><p>If you see this, your site is LIVE</p><a href="https://oauth.deriv.com/oauth2/authorize?app_id=34MDQBDeBSpMMiB6OHDSs" style="background:red;color:white;padding:15px 25px;border-radius:8px;text-decoration:none">LOGIN DERIV</a></body></html>
