@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -182,54 +182,4 @@ setMode(mode);
 if(derivToken) connectWS();
 </script>
 </body>
- </html>                    
- export default async function handler(req,res){
- if(req.method!=='POST') return res.status(405).json({success:false,message:'Method not allowed'});
- const {amount, phone, package:pack, derivToken, mode} = req.body;
- const consumerKey = process.env.MPESA_CONSUMER_KEY;
- const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
- const shortCode = process.env.MPESA_SHORTCODE || '174379';
- const passkey = process.env.MPESA_PASSKEY;
- if(!consumerKey){
-   // DEMO MODE - Bado bila Daraja - itafanya kazi na manual
-   return res.json({success:true, demo:true, message:'LIVE TRADE - Daraja bado, tumia manual Send Money 0745266488'});
- }
- try{
-   let auth=Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
-   let tokenRes=await fetch('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',{headers:{Authorization:`Basic ${auth}`}});
-   let tokenData=await tokenRes.json();
-   let accessToken=tokenData.access_token;
-   let timestamp=new Date().toISOString().replace(/[-T:.Z]/g,'').slice(0,14);
-   let password=Buffer.from(`${shortCode}${passkey}${timestamp}`).toString('base64');
-   let stkRes=await fetch('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',{
-     method:'POST', headers:{Authorization:`Bearer ${accessToken}`, 'Content-Type':'application/json'},
-     body:JSON.stringify({BusinessShortCode:shortCode, Password:password, Timestamp:timestamp, TransactionType:"CustomerPayBillOnline", Amount:amount, PartyA:phone, PartyB:shortCode, PhoneNumber:phone, CallBackURL:`https://${req.headers.host}/api/callback`, AccountReference:pack, TransactionDesc:`QuickTrading LIVE ${pack} ${mode}`})
-   });
-   let stkData=await stkRes.json();
-   if(stkData.ResponseCode==='0'){ return res.json({success:true, message:'STK LIVE Imetumwa'}); }
-   else{ return res.json({success:false, message:stkData.errorMessage||'STK Imeshindwa'}); }
- }catch(e){ return res.json({success:false, message:e.message}); }
-}
-let payments={};
-export default async function handler(req,res){
- if(req.method==='POST'){
-   try{
-     let body=req.body; let result=body.Body?.stkCallback;
-     if(result?.ResultCode===0){
-       let amount=result.CallbackMetadata.Item.find(i=>i.Name==='Amount')?.Value;
-       let phone=result.CallbackMetadata.Item.find(i=>i.Name==='PhoneNumber')?.Value;
-       let pack=result.CallbackMetadata.Item.find(i=>i.Name==='AccountReference')?.Value||'BASIC LIVE';
-       payments[phone+pack]={paid:true, amount, phone, pack, time:Date.now()};
-       console.log(`LIVE MALIPO: ${phone} ${pack} ${amount}`);
-     }
-   }catch(e){console.log(e);}
-   return res.json({ResultCode:0, ResultDesc:'OK'});
- }
- return res.json({ok:true, live:true});
-}
-export default function handler(req,res){
- const {phone, package:pack}=req.query;
- // Kwa sasa demo - inarudisha paid true baada ya STK
- // Baadaye ita-check payments kutoka callback
- return res.json({paid:true, package:pack, live:true});
-}
+  </html>
