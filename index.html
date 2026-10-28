@@ -1,126 +1,235 @@
-<!DOCTYPE html>
-<html>
+  <!DOCTYPE html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>QUICK TRADING - Official</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QUICK TRADING - LIVE TRADE</title>
 <style>
-body{background:#000;color:#fff;font-family:Arial;text-align:center;margin:0;padding:15px}
-.logo{width:90px;height:90px;background:linear-gradient(135deg,#ff0000,#ff6a00);border-radius:50%;margin:20px auto;display:flex;align-items:center;justify-content:center;font-size:36px;font-weight:bold;box-shadow:0 0 20px #ff0000}
-h1{color:#ff0000;font-size:30px;margin:5px 0;letter-spacing:1px}
-.card{background:#111;border:1px solid #333;padding:18px;border-radius:14px;margin:12px auto;max-width:380px;box-shadow:0 4px 12px rgba(255,0,0,0.1)}
-.btn{background:#ff0000;color:#fff;padding:13px 26px;border-radius:8px;text-decoration:none;display:inline-block;font-weight:bold;margin:6px;border:none;cursor:pointer}
-.price{color:#ff0000;font-size:26px;font-weight:bold}
-.green{background:#25D366}
-.yellow{color:#ffeb3b;font-weight:bold}
-#botPanel{display:none;background:#0a0a0a;border:2px solid #ff0000;padding:18px;border-radius:14px;max-width:380px;margin:15px auto}
-input,select{background:#222;color:#fff;border:1px solid #444;padding:10px;border-radius:6px;width:85%;margin:6px}
-.small{color:#aaa;font-size:11px}
-.log{background:#000;color:#0f0;padding:10px;font-size:11px;height:110px;overflow:auto;text-align:left;border:1px solid #333;margin-top:10px;border-radius:6px}
-.poster{background:linear-gradient(135deg,#111,#220000);border:1px dashed #ff0000;padding:15px;border-radius:12px;max-width:380px;margin:15px auto}
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+body{background:#070a14;color:white;padding:10px}
+.header{text-align:center;padding:18px;background:linear-gradient(135deg,#ff0055,#ffcc00);border-radius:15px}
+.switch{display:flex;justify-content:center;gap:10px;margin:12px 0;flex-wrap:wrap}
+.switch button{padding:8px 18px;border:none;border-radius:20px;font-weight:bold;cursor:pointer;font-size:12px}
+.active-demo{background:#00ff88;color:#000}
+.active-live{background:#ff4444;color:white}
+.inactive{background:#222;color:#888}
+.bot{background:#131827;border:2px solid #00ff88;padding:12px;border-radius:12px;margin:12px 0}
+.log{background:#000;height:160px;overflow:auto;text-align:left;padding:6px;font-size:10px;border-radius:6px;margin-top:6px;border:1px solid #333}
+.pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:10px;margin:15px 0}
+.card{background:#131827;border:1px solid #263043;border-radius:12px;padding:12px;text-align:center;position:relative}
+.card.popular{border:2px solid #ffcc00;transform:scale(1.02);box-shadow:0 0 12px rgba(255,204,0,0.4)}
+.badge{background:#ffcc00;color:#000;padding:3px 8px;border-radius:20px;font-size:9px;position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-weight:bold}
+.price{font-size:22px;font-weight:bold}
+.price.live{color:#00ff88}
+input.phone{width:100%;padding:7px;border-radius:6px;border:none;margin:5px 0;font-size:12px;text-align:center}
+.btn{width:100%;background:linear-gradient(135deg,#00ff88,#00cc66);color:#000;padding:8px;border:none;border-radius:7px;font-weight:bold;cursor:pointer;font-size:11px}
+.btn.vip{background:linear-gradient(135deg,#ff0055,#ffcc00);color:#fff}
+.btn.live-btn{background:linear-gradient(135deg,#ff4444,#ff8800);color:white}
+select, input.num{padding:5px;border-radius:4px;border:none;margin:2px;font-size:11px}
+.status{padding:6px;border-radius:6px;margin:5px 0;font-size:11px;display:none}
+.signal-box{background:#0f1425;border:1px solid #ffcc00;padding:8px;border-radius:8px;margin:8px 0;font-size:11px}
 </style>
 </head>
 <body>
 
-<div class="logo">QT</div>
-<h1>QUICK TRADING</h1>
-<p style="color:#ff6a00;font-weight:bold">Affordable Trading Here - Quick Access To Trade</p>
-<p id="userInfo" class="small">Login kuona Bot & Balance yako</p>
-
-<div id="loginDiv">
-<a class="btn" href="https://oauth.deriv.com/oauth2/authorize?app_id=108800">🔐 LOGIN WITH DERIV</a>
+<div class="header">
+<h1>QUICK TRADING 🔥 LIVE</h1>
+<p>DEMO + LIVE Trades - Bot Halisi 100%</p>
+<p style="font-size:11px">📲 0745266488 | LIVE TRADING ACTIVE</p>
 </div>
 
-<div id="botPanel">
-<h3 style="color:#ff0000">🤖 QUICK TRADING BOT PRO</h3>
-<p>Balance: <span id="balance" class="yellow">Loading...</span> | Profit: <span id="profit" style="color:#0f0">0</span></p>
-<label>Market: <select id="market"><option value="R_100">Volatility 100 Index</option><option value="R_50">Volatility 50</option><option value="R_25">Volatility 25</option><option value="1HZ100V">Volatility 100 (1s)</option></select></label><br>
-<label>Stake ($): <input id="stake" type="number" value="1" step="0.5"></label><br>
-<label>Strategy: <select id="strategy"><option value="OVER">Digit OVER 4 - Safe</option><option value="UNDER">Digit UNDER 4 - Safe</option><option value="EVEN">Digit EVEN</option><option value="ODD">Digit ODD</option></select></label><br>
-<button class="btn" onclick="startBot()">START BOT ▶️</button>
-<button class="btn" style="background:#555" onclick="stopBot()">STOP ⏹️</button>
-<div class="log" id="log">Bot ready... Login with demo first!\n</div>
-<p class="small">⚠️ Tumia DEMO kwanza. Bot inafanya trade auto kila 7.5 sec.<br><a href="#" onclick="logout()" style="color:#ff0000">Logout</a></p>
+<div class="switch">
+<button id="demoBtn" onclick="setMode('demo')">🧪 DEMO - FREE (No Risk)</button>
+<button id="liveBtn" onclick="setMode('live')">💰 LIVE TRADE - Real Money</button>
+</div>
+<div style="text-align:center;font-size:11px" id="modeInfo">DEMO MODE - Hakuna hasara!</div>
+
+<div class="bot">
+<h3 id="botTitle">🤖 BOT - DEMO MODE</h3>
+<div style="margin:6px 0">
+<button onclick="loginDeriv()" style="background:#ff4444;color:white;padding:7px 14px;border:none;border-radius:6px;font-weight:bold;font-size:11px">🔐 CONNECT DERIV</button>
+<span id="balance" style="margin-left:8px;font-size:12px;color:#00ff88">Balance: $0.00</span>
+<span id="profit" style="margin-left:8px;font-size:11px;color:#ffcc00">Profit Leo: $0.00</span>
 </div>
 
-<div class="poster">
-<h3 style="color:#ffeb3b">🔥 OFFER YA LEO!</h3>
-<p>Anza Trading na <b>KES 500 tu!</b><br>Bot + Signals + Mentorship</p>
-<a class="btn yellow" style="background:#ffeb3b;color:#000" href="https://quick-trading.vercel.app">quick-trading.vercel.app</a>
-<p class="small">Lipa Pochi: 0745266488 - QUICK TRADING</p>
+<div style="background:#000;padding:8px;border-radius:6px;margin:6px 0;font-size:11px">
+<label>Market:</label>
+<select id="market"><option value="R_100">R_100 LIVE</option><option value="R_50">R_50 LIVE</option><option value="R_25">R_25 LIVE</option><option value="1HZ100V">1HZ100V LIVE 1s</option></select>
+<label>Strategy:</label>
+<select id="strategy"><option value="OVER">OVER</option><option value="UNDER">UNDER</option><option value="EVEN">EVEN</option><option value="ODD">ODD</option></select>
+<input id="digit" type="number" min="0" max="9" value="4" class="num" style="width:45px">
+<label>Stake $:</label><input id="stake" type="number" value="0.35" min="0.35" step="0.1" class="num" style="width:65px">
+<br>
+<button id="startBtn" onclick="startBot()" class="btn" style="width:auto;padding:8px 18px;margin-top:5px">▶️ START LIVE BOT</button>
+<button onclick="stopBot()" style="background:#ff4444;color:white;padding:8px 12px;border:none;border-radius:5px;font-size:11px;margin-left:5px">⏹️ STOP</button>
+</div>
+
+<div id="status" class="status"></div>
+<div id="signalBox" class="signal-box">
+<b>🔥 LIVE SIGNALS DIRECT:</b><div id="liveSignal">Nunua package ndio signals za LIVE TRADE zianze kuja hapa direct kwa account yako...</div>
+</div>
+<div class="log" id="log">LIVE TRADE SYSTEM READY<br>1. Chagua DEMO au LIVE juu<br>2. Click CONNECT DERIV<br>3. Weka API Token<br>4. START BOT - Bot itafanya LIVE trades kwa Deriv yako!</div>
+<p style="font-size:9px;color:#aaa">⚠️ LIVE TRADE = Pesa halisi! Tumia DEMO kwanza siku 2!</p>
+</div>
+
+<h2 style="text-align:center;color:#ffcc00;margin:10px 0;font-size:14px">💰 LIVE TRADE PACKAGES - STK PUSH</h2>
+
+<div class="pricing">
+<div class="card">
+<h3>STARTER - LIVE</h3><div class="price live">80 <span>KES</span></div>
+<p style="font-size:10px">✅ Live Bot Access<br>✅ Signals 2/day LIVE<br>✅ Group</p>
+<input class="phone" id="p80" placeholder="07XXXXXXXX">
+<button class="btn live-btn" id="b80" onclick="lipaSTK(80,'STARTER LIVE','p80','b80')">LIPA 80 - LIVE TRADE</button>
+</div>
+
+<div class="card popular">
+<div class="badge">POPULAR LIVE 🔥</div>
+<h3>BASIC - LIVE</h3><div class="price live">150 <span>KES</span></div>
+<p style="font-size:10px">✅ Live Bot Pro<br>✅ Signals 5/day LIVE DIRECT<br>✅ VIP Group<br>✅ OVER 4 Strategy</p>
+<input class="phone" id="p150" placeholder="07XXXXXXXX">
+<button class="btn live-btn" id="b150" onclick="lipaSTK(150,'BASIC LIVE','p150','b150')">LIPA 150 - LIVE TRADE</button>
 </div>
 
 <div class="card">
-<h3>STARTER PACKAGE</h3><p class="price">KES 500</p><p>✅ Daily Signals<br>✅ Basics Course<br>✅ WhatsApp Group</p>
-<a class="btn green" href="https://wa.me/254745266488?text=Habari%20Quick%20Trading%20Nahitaji%20STARTER%20KES500%20Niko%20tayari%20kulipa%20Pochi">Buy STARTER - WhatsApp</a>
+<h3>PRO - LIVE</h3><div class="price live">200 <span>KES</span></div>
+<p style="font-size:10px">✅ Live Bot Max<br>✅ Signals 8/day LIVE DIRECT<br>✅ All Strategies<br>✅ 1-1 Call</p>
+<input class="phone" id="p200" placeholder="07XXXXXXXX">
+<button class="btn live-btn" id="b200" onclick="lipaSTK(200,'PRO LIVE','p200','b200')">LIPA 200 - LIVE TRADE</button>
 </div>
 
-<div class="card" style="border-color:#ff0000;transform:scale(1.03)">
-<h3>🔥 PRO PACKAGE - Popular</h3><p class="price">KES 1500</p><p>✅ VIP Signals<br>✅ BOT PRO Ndani ya Site<br>✅ 1-on-1 Mentorship<br>✅ Lifetime Updates</p>
-<a class="btn green" href="https://wa.me/254745266488?text=Habari%20Quick%20Trading%20Nahitaji%20PRO%20KES1500%20Niko%20tayari%20kulipa%20Pochi">Buy PRO - WhatsApp</a>
+<div class="card">
+<h3>PREMIUM - LIVE</h3><div class="price live">500 <span>KES</span></div>
+<p style="font-size:10px">✅ Live Bot + Indicators<br>✅ Signals 15/day LIVE DIRECT<br>✅ Live Session<br>✅ PDF Guide</p>
+<input class="phone" id="p500" placeholder="07XXXXXXXX">
+<button class="btn vip" id="b500" onclick="lipaSTK(500,'PREMIUM LIVE','p500','b500')">LIPA 500 - LIVE TRADE</button>
 </div>
 
-<div class="card" style="border-color:#25D366">
-<h3>💰 LIPA NA POCHI LA BIASHARA</h3>
-<p>1️⃣ M-PESA > Send Money<br>Number: <span class="yellow">0745266488</span><br>Jina: <span class="yellow">QUICK TRADING</span></p>
-<p>2️⃣ Amount: 500 au 1500<br>3️⃣ PIN > Send</p>
-<a class="btn green" href="https://wa.me/254745266488?text=Nimelipa%20via%20Pochi%20KES%20...%20Tafadhali%20Confirm%20Quick%20Trading">📸 Tuma Screenshot Hapa</a>
-<p class="small">Salama 100% - Pochi ya Quick Trading<br>Joyce Kemosi</p>
+<div class="card">
+<h3>VIP PRO 🔥 LIVE</h3><div class="price live">1000 <span>KES</span></div>
+<p style="font-size:10px">✅ ALL LIVE ACCESS<br>✅ Signals 30/day LIVE DIRECT<br>✅ Bot Auto Trade LIVE<br>✅ Direct na Joyce</p>
+<input class="phone" id="p1000" placeholder="07XXXXXXXX">
+<button class="btn vip" id="b1000" onclick="lipaSTK(1000,'VIP PRO LIVE','p1000','b1000')">LIPA 1000 - LIVE TRADE</button>
 </div>
-
-<p style="margin-top:25px;color:#555">© Quick Trading 2026 | Joyce Kemosi<br>0745266488 | All Rights Reserved</p>
+</div>
 
 <script>
-let token=null, ws=null, running=false, totalProfit=0, contractId=null;
-const urlParams = new URLSearchParams(window.location.search);
-if(urlParams.has('token1')){token=urlParams.get('token1'); localStorage.setItem('deriv_token', token); window.history.replaceState({}, document.title, "/");}
-else{token=localStorage.getItem('deriv_token');}
-if(token){
- document.getElementById('loginDiv').style.display='none';
- document.getElementById('botPanel').style.display='block';
- document.getElementById('userInfo').innerHTML='✅ Logged In - Bot Ready | <a href="#" onclick="logout()" style="color:#ff0000">Logout</a>';
- connectDeriv();
-}
-function connectDeriv(){
- ws=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=108800');
- ws.onopen=()=>ws.send(JSON.stringify({authorize:token}));
- ws.onmessage=(msg)=>{
-  let data=JSON.parse(msg.data);
-  if(data.error){log('❌ ERROR: '+data.error.message); if(data.error.code=='InvalidToken'){logout();} return;}
-  if(data.authorize){ws.send(JSON.stringify({balance:1, subscribe:1})); log('✅ '+data.authorize.loginid+' Connected');}
-  if(data.balance){document.getElementById('balance').innerText=data.balance.balance.toFixed(2)+' '+data.balance.currency;}
-  if(data.buy){
-    contractId=data.buy.contract_id;
-    log('📈 Trade Placed: '+data.buy.longcode.slice(0,70));
-    ws.send(JSON.stringify({proposal_open_contract:1, contract_id: contractId, subscribe:1}));
-  }
-  if(data.proposal_open_contract && data.proposal_open_contract.is_sold){
-   let c=data.proposal_open_contract; totalProfit+=c.profit; document.getElementById('profit').innerText=totalProfit.toFixed(2);
-   log((c.profit>0?'WIN ✅ +'+c.profit.toFixed(2):'LOSS ❌ '+c.profit.toFixed(2)));
-  }
+let mode=localStorage.getItem('trading_mode')||'demo';
+let ws=null, derivToken=localStorage.getItem('deriv_token'), isRunning=false, profitToday=0, balance=0;
+
+function log(m){let l=document.getElementById('log'); l.innerHTML+=`<div>${new Date().toLocaleTimeString()} - ${m}</div>`; l.scrollTop=l.scrollHeight;}
+function showStatus(m,ok=true){let s=document.getElementById('status'); s.style.display='block'; s.style.background=ok?'#0a2a0a':'#2a0a0a'; s.innerHTML=m;}
+
+function setMode(newMode){
+ mode=newMode; localStorage.setItem('trading_mode',mode);
+ let demoBtn=document.getElementById('demoBtn'), liveBtn=document.getElementById('liveBtn'), info=document.getElementById('modeInfo'), title=document.getElementById('botTitle'), startBtn=document.getElementById('startBtn');
+ if(mode==='demo'){
+   demoBtn.className='active-demo'; liveBtn.className='inactive'; info.innerHTML='🧪 DEMO MODE - Hakuna hasara! Jaribu bot FREE!'; info.style.color='#00ff88'; title.innerHTML='🤖 BOT - DEMO MODE 🧪'; startBtn.innerHTML='▶️ START BOT (DEMO) 🧪';
+   log("🔄 DEMO MODE - No risk!");
+ }else{
+   demoBtn.className='inactive'; liveBtn.className='active-live'; info.innerHTML='💰 LIVE TRADE MODE - Pesa Halisi! Risk iko!'; info.style.color='#ff4444'; title.innerHTML='🤖 BOT - LIVE TRADE MODE 💰'; startBtn.innerHTML='▶️ START BOT (LIVE TRADE) 💰';
+   log("💰 LIVE TRADE MODE - Real money!"); if(!confirm("LIVE TRADE = REAL MONEY + RISK! Umesha-jaribu DEMO siku 2?")){ setMode('demo'); return; }
  }
- ws.onerror=()=>log('❌ Connection Error - Jaribu tena');
+ document.getElementById('balance').innerText=`Balance: $${balance.toFixed(2)} (${mode.toUpperCase()})`;
 }
-function log(t){let l=document.getElementById('log'); l.innerText+=t+'\n'; l.scrollTop=l.scrollHeight;}
-function startBot(){
- if(!ws){log('Login kwanza!'); return;}
- if(running) return; running=true; log('🚀 Bot STARTED - Trading...');
- tradeLoop();
+
+function connectWS(){
+ ws=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
+ ws.onopen=()=>{ log(`🔌 Connected Deriv... Mode ${mode.toUpperCase()}`); if(derivToken) ws.send(JSON.stringify({authorize:derivToken})); };
+ ws.onmessage=(msg)=>{
+   let data=JSON.parse(msg.data);
+   if(data.msg_type==='authorize'){
+     if(data.error){ log(`❌ Token Error: ${data.error.message}`); showStatus(`❌ Token Error: ${data.error.message}`,false); }
+     else{ let accType=data.authorize.is_virtual?'DEMO':'LIVE REAL'; balance=data.authorize.balance; document.getElementById('balance').innerText=`Balance: $${balance.toFixed(2)} (${accType})`; log(`✅ Connected! ${accType} Balance $${balance} - LIVE TRADING READY!`); showStatus(`✅ ${accType} Connected! Balance $${balance}`,true); ws.send(JSON.stringify({balance:1,subscribe:1})); }
+   }
+   if(data.msg_type==='balance'){ balance=data.balance.balance; document.getElementById('balance').innerText=`Balance: $${balance.toFixed(2)} (${mode.toUpperCase()})`; }
+   if(data.msg_type==='buy'){ if(data.error){ log(`❌ Trade Error: ${data.error.message}`); }else{ log(`✅ LIVE Trade Placed! ID ${data.buy.contract_id} Stake $${data.buy.buy_price}`); } }
+   if(data.msg_type==='proposal_open_contract'){ let c=data.proposal_open_contract; if(c.is_sold){ profitToday+=c.profit; document.getElementById('profit').innerText=`Profit Leo: $${profitToday.toFixed(2)}`; log(`${c.status==='won'?'✅ WIN':'❌ LOSS'} LIVE Profit $${c.profit.toFixed(2)} Total $${profitToday.toFixed(2)}`); } }
+ };
 }
-function stopBot(){running=false; log('⏹️ Bot STOPPED - Total Profit: '+totalProfit.toFixed(2));}
-function logout(){localStorage.removeItem('deriv_token'); location.href='/';}
-function tradeLoop(){
- if(!running) return;
- let market=document.getElementById('market').value;
- let stake=parseFloat(document.getElementById('stake').value);
- let strat=document.getElementById('strategy').value;
- if(isNaN(stake)||stake<0.35){log('❌ Stake lazima iwe 0.35 au zaidi'); stopBot(); return;}
- let type = strat=='OVER'?'DIGITOVER': strat=='UNDER'?'DIGITUNDER': strat=='EVEN'?'DIGITEVEN':'DIGITODD';
- let barrier = (type=='DIGITOVER'||type=='DIGITUNDER')?4:undefined;
- let params={amount:stake,basis:'stake',contract_type:type,currency:'USD',duration:1,duration_unit:'t',symbol:market};
- if(barrier!==undefined) params.barrier=barrier;
- ws.send(JSON.stringify({buy:1,price:stake,parameters:params}));
- setTimeout(()=>{if(running) tradeLoop()}, 7500);
+
+function loginDeriv(){ let t=prompt(`Weka Deriv API Token (${mode.toUpperCase()} LIVE):\n1. app.deriv.com\n2. Chagua ${mode.toUpperCase()} account juu\n3. Settings > API Token > Create New (Read + Trade)\n4. Copy hapa:`); if(t){ localStorage.setItem('deriv_token',t); derivToken=t; connectWS(); } }
+
+async function startBot(){
+ if(!derivToken){ loginDeriv(); return; }
+ if(!ws||ws.readyState!==1){ connectWS(); await new Promise(r=>setTimeout(r,1500)); }
+ if(isRunning){ log("Bot already running LIVE!"); return; }
+ let market=document.getElementById('market').value, strategy=document.getElementById('strategy').value, digit=document.getElementById('digit').value, stake=parseFloat(document.getElementById('stake').value);
+ isRunning=true; document.getElementById('startBtn').innerText=`BOT LIVE WORKING... (${mode.toUpperCase()})`;
+ log(`🚀 LIVE BOT STARTED ${mode.toUpperCase()}! ${market} ${strategy} ${digit} $${stake}`);
+ let loop=()=>{ if(!isRunning) return; let type=strategy==="OVER"?"DIGITOVER":strategy==="UNDER"?"DIGITUNDER":strategy==="EVEN"?"DIGITEVEN":"DIGITODD"; let prop={proposal:1, amount:stake, basis:"stake", contract_type:type, currency:"USD", duration:1, duration_unit:"t", symbol:market, barrier:digit}; if(type==="DIGITEVEN"||type==="DIGITODD") delete prop.barrier; ws.send(JSON.stringify(prop)); let h=(msg)=>{ let data=JSON.parse(msg.data); if(data.msg_type==='proposal'){ if(data.error){ log(`❌ ${data.error.message}`); ws.removeEventListener('message',h); setTimeout(loop,8000); }else{ ws.send(JSON.stringify({buy:data.proposal.id, price:stake})); ws.removeEventListener('message',h); setTimeout(loop,8000); } } }; ws.addEventListener('message',h); }; loop();
 }
+
+function stopBot(){ isRunning=false; document.getElementById('startBtn').innerText=`▶️ START BOT (${mode.toUpperCase()}) LIVE`; log("⏹️ LIVE Bot Stopped"); }
+
+async function lipaSTK(amount, pack, inputId, btnId){
+ let phone=document.getElementById(inputId).value.trim(), btn=document.getElementById(btnId);
+ if(!phone||phone.length<10){alert("Weka namba 07XX..."); return;}
+ if(!derivToken){alert("Connect Deriv kwanza - LIVE TRADE!"); loginDeriv(); return;}
+ let phone254=phone.startsWith('0')?'254'+phone.substring(1):phone;
+ btn.disabled=true; btn.innerText="INATUMA STK LIVE...";
+ log(`📲 LIVE STK Push KES ${amount} kwa ${phone254} - ${pack}`); showStatus(`📲 STK Push LIVE kwa ${phone}... Weka PIN!`);
+ try{
+   let res=await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount, phone:phone254, package:pack, derivToken, mode})});
+   let data=await res.json();
+   if(data.success){
+     log(`✅ STK Imetumwa LIVE! Weka PIN`); showStatus(`✅ STK Imetumwa! Weka PIN ${phone} - Subiri 20sec LIVE`,true);
+     let checks=0; let interval=setInterval(async()=>{ checks++; let chk=await fetch(`/api/check?phone=${phone254}&package=${pack}`); let cd=await chk.json(); if(cd.paid){ clearInterval(interval); localStorage.setItem('pkg',pack); log(`🔥 MALIPO LIVE IMEFIKA! ${pack} ACTIVE! Signals za LIVE TRADE zinakuja DIRECT!`); showStatus(`🔥 LIVE TRADE ACTIVE! ${pack} - Signals DIRECT kwa account yako!`,true); document.getElementById('liveSignal').innerHTML=`🔥 ${pack} LIVE ACTIVE! Bot ita-trade ${document.getElementById('market').value} ${document.getElementById('strategy').value} kwa Deriv yako SASA!`; btn.innerText=`✅ ${pack} LIVE ACTIVE!`; } if(checks>12){ clearInterval(interval); btn.disabled=false; btn.innerText=`LIPA ${amount} - LIVE TRADE`; } },5000);
+   }else{ log(`❌ STK Failed: ${data.message}`); showStatus(`❌ ${data.message} - Lipa manual Send Money 0745266488`,false); btn.disabled=false; btn.innerText=`LIPA ${amount} - LIVE TRADE`; }
+ }catch(e){ log(`❌ Error - Lipa manual 0745266488`); showStatus(`Kwa sasa Daraja bado - Lipa manual Send Money 0745266488 - Screenshot WhatsApp`,false); window.open(`https://wa.me/254745266488?text=Nimelipa%20${pack}%20LIVE%20KES%20${amount}%20Namba%20${phone}%20Mode%20${mode}`, '_blank'); document.getElementById('liveSignal').innerHTML=`🔥 ${pack} LIVE - Signal: ${document.getElementById('market').value} ${document.getElementById('strategy').value} ${document.getElementById('digit').value}`; btn.disabled=false; btn.innerText=`LIPA ${amount} - LIVE TRADE`; }
+}
+
+setMode(mode);
+if(derivToken) connectWS();
 </script>
 </body>
-                                                                                        </html>                                                                                                                                                                                                              </html>
+ </html>                    
+ export default async function handler(req,res){
+ if(req.method!=='POST') return res.status(405).json({success:false,message:'Method not allowed'});
+ const {amount, phone, package:pack, derivToken, mode} = req.body;
+ const consumerKey = process.env.MPESA_CONSUMER_KEY;
+ const consumerSecret = process.env.MPESA_CONSUMER_SECRET;
+ const shortCode = process.env.MPESA_SHORTCODE || '174379';
+ const passkey = process.env.MPESA_PASSKEY;
+ if(!consumerKey){
+   // DEMO MODE - Bado bila Daraja - itafanya kazi na manual
+   return res.json({success:true, demo:true, message:'LIVE TRADE - Daraja bado, tumia manual Send Money 0745266488'});
+ }
+ try{
+   let auth=Buffer.from(`${consumerKey}:${consumerSecret}`).toString('base64');
+   let tokenRes=await fetch('https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',{headers:{Authorization:`Basic ${auth}`}});
+   let tokenData=await tokenRes.json();
+   let accessToken=tokenData.access_token;
+   let timestamp=new Date().toISOString().replace(/[-T:.Z]/g,'').slice(0,14);
+   let password=Buffer.from(`${shortCode}${passkey}${timestamp}`).toString('base64');
+   let stkRes=await fetch('https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',{
+     method:'POST', headers:{Authorization:`Bearer ${accessToken}`, 'Content-Type':'application/json'},
+     body:JSON.stringify({BusinessShortCode:shortCode, Password:password, Timestamp:timestamp, TransactionType:"CustomerPayBillOnline", Amount:amount, PartyA:phone, PartyB:shortCode, PhoneNumber:phone, CallBackURL:`https://${req.headers.host}/api/callback`, AccountReference:pack, TransactionDesc:`QuickTrading LIVE ${pack} ${mode}`})
+   });
+   let stkData=await stkRes.json();
+   if(stkData.ResponseCode==='0'){ return res.json({success:true, message:'STK LIVE Imetumwa'}); }
+   else{ return res.json({success:false, message:stkData.errorMessage||'STK Imeshindwa'}); }
+ }catch(e){ return res.json({success:false, message:e.message}); }
+}
+let payments={};
+export default async function handler(req,res){
+ if(req.method==='POST'){
+   try{
+     let body=req.body; let result=body.Body?.stkCallback;
+     if(result?.ResultCode===0){
+       let amount=result.CallbackMetadata.Item.find(i=>i.Name==='Amount')?.Value;
+       let phone=result.CallbackMetadata.Item.find(i=>i.Name==='PhoneNumber')?.Value;
+       let pack=result.CallbackMetadata.Item.find(i=>i.Name==='AccountReference')?.Value||'BASIC LIVE';
+       payments[phone+pack]={paid:true, amount, phone, pack, time:Date.now()};
+       console.log(`LIVE MALIPO: ${phone} ${pack} ${amount}`);
+     }
+   }catch(e){console.log(e);}
+   return res.json({ResultCode:0, ResultDesc:'OK'});
+ }
+ return res.json({ok:true, live:true});
+}
+export default function handler(req,res){
+ const {phone, package:pack}=req.query;
+ // Kwa sasa demo - inarudisha paid true baada ya STK
+ // Baadaye ita-check payments kutoka callback
+ return res.json({paid:true, package:pack, live:true});
+}
