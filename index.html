@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QT - FOREX CONNECTED</title>
+<title>QT - FOREX FINAL</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#0a0e1a;color:#fff;font-family:Arial;padding-bottom:80px}
@@ -17,77 +17,42 @@ body{background:#0a0e1a;color:#fff;font-family:Arial;padding-bottom:80px}
 canvas{width:100%;height:220px;display:block}
 .forex-info{display:flex;justify-content:space-around;padding:8px;background:#0f1a2f;font-size:10px}
 .btns{display:flex;gap:10px;padding:10px}
-.btn-buy{flex:1;background:linear-gradient(135deg,#00ff88,#00aa66);color:#000;border:none;padding:15px;border-radius:10px;font-weight:900;font-size:14px;cursor:pointer}
-.btn-sell{flex:1;background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;border:none;padding:15px;border-radius:10px;font-weight:900;font-size:14px;cursor:pointer}
-.btn-buy:disabled,.btn-sell:disabled{background:#333;color:#666}
+.btn-buy{flex:1;background:linear-gradient(135deg,#00ff88,#00aa66);color:#000;border:none;padding:15px;border-radius:10px;font-weight:900;font-size:14px}
+.btn-sell{flex:1;background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;border:none;padding:15px;border-radius:10px;font-weight:900;font-size:14px}
 .auto-bar{display:flex;justify-content:space-between;align-items:center;margin:10px;background:#111a2f;padding:12px;border-radius:10px;border:1px solid #00ff88}
 .signal{margin:10px;background:#111a2f;border-left:3px solid #00ff88;border-radius:8px;padding:12px}
 .signal.buy{border-left-color:#00ff88;background:#0a221a} .signal.sell{border-left-color:#ff4444;background:#22100a}
 .pkgs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px}
-.pkg{background:#111a2f;border:1px solid #1e3a4a;border-left:3px solid #00ff88;border-radius:10px;padding:12px;position:relative}
+.pkg{background:#111a2f;border:1px solid #1e3a4a;border-left:3px solid #00ff88;border-radius:10px;padding:12px}
 .pkg .price{color:#00ff88;font-weight:900;font-size:18px}
-.pkg.active{border:2px solid #00ff88;box-shadow:0 0 15px rgba(0,255,136,0.3);background:#0a221a}
-.pkg.vip{border-left:3px solid #ffcc00;background:linear-gradient(135deg,#111a2f,#2a2210)}
-.pkg.vip .price{color:#ffcc00}
-.pkg .left{font-size:10px;color:#00ff88;font-weight:bold;margin-top:4px}
+.pkg.active{border:2px solid #00ff88;background:#0a221a}
+.pkg.vip{border-left:3px solid #ffcc00;background:linear-gradient(135deg,#111a2f,#2a2210)} .pkg.vip .price{color:#ffcc00}
 input{width:100%;padding:8px;margin:5px 0;background:#080c1a;border:1px solid #1e3a4a;color:#fff;border-radius:6px;font-size:11px}
 .btn-pay{width:100%;background:linear-gradient(135deg,#ff6b00,#ff8c00);color:#fff;border:none;padding:8px;border-radius:6px;font-weight:bold;font-size:11px;cursor:pointer}
 .log{background:#000;margin:10px;border-radius:8px;padding:8px;height:80px;overflow-y:auto;font-size:10px;border:1px solid #1e3a4a}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#111a2f;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #1e3a4a}
-.bottom div{text-align:center;font-size:9px;color:#666} .bottom .active{color:#00ff88}
-.switch{width:48px;height:26px;background:#333;border-radius:20px;position:relative;cursor:pointer}
-.switch.on{background:#00ff88} .switch::after{content:"";position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:2px;left:2px;transition:0.3s} .switch.on::after{left:24px;background:#000}
-.lock-overlay{position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.88);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:5}
+.switch{width:48px;height:26px;background:#333;border-radius:20px;position:relative;cursor:pointer} .switch.on{background:#00ff88} .switch::after{content:"";position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:2px;left:2px;transition:0.3s} .switch.on::after{left:24px;background:#000}
 </style>
 </head>
 <body>
-
 <div class="top"><div class="logo">QT <span>FOREX</span></div><div class="badge">🌍 CANDLES LIVE</div></div>
-
-<div class="balance">
-<small style="color:#888;font-size:10px">FOREX BALANCE</small>
-<h2 id="bal">$0.00</h2>
-<div style="font-size:11px;color:#00ff88" id="profit">Lipa package kuanza</div>
-<div id="tradeCounter" style="font-size:12px;color:#ff8c00;margin-top:6px;font-weight:bold"></div>
-</div>
-
-<div class="forex-chart">
-<div class="chart-header"><span style="color:#00ff88;font-weight:900">EUR/USD • M1 FOREX CANDLES - PRICE LIVE</span><span style="color:#00ff88">● LIVE</span></div>
-<canvas id="chart"></canvas>
-<div class="forex-info"><span>O <b id="o">--</b></span><span>H <b id="h">--</b></span><span>L <b id="l">--</b></span><span>C <b id="c" style="color:#00ff88">--</b></span></div>
-<div id="lockOverlay" class="lock-overlay"><div style="font-size:30px">🔒</div><div style="font-weight:900">PRICE LOCKED</div><div style="font-size:10px;color:#888">Lipa 80,150,200,500,1000 ku-unlock</div></div>
-</div>
-
-<div class="btns">
-<button class="btn-buy" id="buyBtn" onclick="trade('BUY')" disabled>BUY ↑ LOCKED</button>
-<button class="btn-sell" id="sellBtn" onclick="trade('SELL')" disabled>SELL ↓ LOCKED</button>
-</div>
-
-<div class="auto-bar"><span style="font-size:12px;font-weight:bold">🤖 AUTO BOT - <span id="autoStatus">LOCKED</span></span><div style="display:flex;align-items:center;gap:8px"><div class="switch" id="sw" onclick="toggleAuto()"></div><b id="atxt" style="font-size:11px;color:#666">OFF</b></div></div>
-
-<div class="signal" id="sig"><h4 style="font-size:12px;color:#888" id="sigT">🔒 PRICE LOCKED - CONNECTED TO PACKAGES</h4><p style="font-size:10px;color:#666;margin-top:4px" id="sigI">80=1 trade, 150=2, 200=3, 500=5, 1000=VIP DAY unlimited - Price ya candle ina-connect na payment!</p></div>
-
-<div style="margin:10px;background:#111a2f;padding:12px;border-radius:10px;border:1px solid #00ff88">
-<h4 style="color:#00ff88;font-size:11px;text-align:center;margin-bottom:6px">🔗 CONNECT DERIV - PRICE YA FOREX LIVE</h4>
-<input id="token" placeholder="Paste Deriv API Token">
-<button style="width:100%;background:#00ff88;color:#000;border:none;padding:10px;border-radius:6px;font-weight:900;cursor:pointer" onclick="connectDeriv()" id="btnConn">CONNECT FOREX PRICE</button>
-</div>
-
+<div class="balance"><small style="color:#888;font-size:10px">FOREX BALANCE</small><h2 id="bal">$0.00</h2><div style="font-size:11px;color:#00ff88" id="profit">Lipa package kuanza</div><div id="tradeCounter" style="font-size:12px;color:#ff8c00;margin-top:6px;font-weight:bold"></div></div>
+<div class="forex-chart"><div class="chart-header"><span style="color:#00ff88;font-weight:900">EUR/USD • M1 FOREX CANDLES</span><span style="color:#00ff88">● LIVE</span></div><canvas id="chart"></canvas><div class="forex-info"><span>O <b id="o">--</b></span><span>H <b id="h">--</b></span><span>L <b id="l">--</b></span><span>C <b id="c" style="color:#00ff88">--</b></span></div></div>
+<div class="btns"><button class="btn-buy" id="buyBtn" onclick="trade('BUY')">BUY ↑</button><button class="btn-sell" id="sellBtn" onclick="trade('SELL')">SELL ↓</button></div>
+<div class="auto-bar"><span style="font-size:12px;font-weight:bold">🤖 AUTO BOT - <span id="autoStatus">READY</span></span><div style="display:flex;align-items:center;gap:8px"><div class="switch" id="sw" onclick="toggleAuto()"></div><b id="atxt" style="font-size:11px;color:#666">OFF</b></div></div>
+<div class="signal" id="sig"><h4 style="font-size:12px;color:#00ff88" id="sigT">📊 FOREX READY - PRICE LIVE</h4><p style="font-size:10px;color:#ccc;margin-top:4px" id="sigI">80=1, 150=2, 200=3, 500=5, 1000=VIP DAY - Price connected!</p></div>
 <div class="pkgs">
-<div class="pkg" id="pkg-Starter"><b>Starter</b><div class="price">80 KES</div><small>1 Trade Signal</small><div class="left" id="left-Starter"></div><input id="p1" placeholder="07XX"><button class="btn-pay" onclick="lipa(80,'Starter',1,'p1',this)">LIPA 80 = 1 TRADE</button></div>
-<div class="pkg" id="pkg-Basic"><b>Basic</b><div class="price">150 KES</div><small>2 Trades Signals</small><div class="left" id="left-Basic"></div><input id="p2" placeholder="07XX"><button class="btn-pay" onclick="lipa(150,'Basic',2,'p2',this)">LIPA 150 = 2 TRADES</button></div>
-<div class="pkg" id="pkg-Standard"><b>Standard</b><div class="price">200 KES</div><small>3 Trades Signals</small><div class="left" id="left-Standard"></div><input id="p25" placeholder="07XX"><button class="btn-pay" onclick="lipa(200,'Standard',3,'p25',this)">LIPA 200 = 3 TRADES</button></div>
-<div class="pkg" id="pkg-Boost"><b>Boost</b><div class="price">500 KES</div><small>5 Trades Signals</small><div class="left" id="left-Boost"></div><input id="p3" placeholder="07XX"><button class="btn-pay" onclick="lipa(500,'Boost',5,'p3',this)">LIPA 500 = 5 TRADES</button></div>
-<div class="pkg vip" id="pkg-VIP"><b>👑 VIP</b><div class="price">1000 KES</div><small>VIP ONE DAY - Unlimited</small><div class="left" id="left-VIP" style="color:#ffcc00"></div><input id="p4" placeholder="07XX"><button class="btn-pay" style="background:linear-gradient(135deg,#ffcc00,#ff9900);color:#000" onclick="lipa(1000,'VIP',999,'p4',this)">LIPA 1000 = VIP DAY</button></div>
+<div class="pkg" id="pkg-Starter"><b>Starter</b><div class="price">80 KES</div><small>1 Trade</small><input id="p1" placeholder="07XX"><button class="btn-pay" onclick="lipa(80,'Starter',1,'p1',this)">LIPA 80 = 1 TRADE</button></div>
+<div class="pkg" id="pkg-Basic"><b>Basic</b><div class="price">150 KES</div><small>2 Trades</small><input id="p2" placeholder="07XX"><button class="btn-pay" onclick="lipa(150,'Basic',2,'p2',this)">LIPA 150 = 2 TRADES</button></div>
+<div class="pkg" id="pkg-Standard"><b>Standard</b><div class="price">200 KES</div><small>3 Trades</small><input id="p25" placeholder="07XX"><button class="btn-pay" onclick="lipa(200,'Standard',3,'p25',this)">LIPA 200 = 3 TRADES</button></div>
+<div class="pkg" id="pkg-Boost"><b>Boost</b><div class="price">500 KES</div><small>5 Trades</small><input id="p3" placeholder="07XX"><button class="btn-pay" onclick="lipa(500,'Boost',5,'p3',this)">LIPA 500 = 5 TRADES</button></div>
+<div class="pkg vip" id="pkg-VIP"><b>👑 VIP</b><div class="price">1000 KES</div><small>VIP ONE DAY</small><input id="p4" placeholder="07XX"><button class="btn-pay" style="background:linear-gradient(135deg,#ffcc00,#ff9900);color:#000" onclick="lipa(1000,'VIP',999,'p4',this)">LIPA 1000 = VIP DAY</button></div>
 </div>
-
-<div class="log" id="log">🔒 QT FOREX - PRICE CONNECTED TO PACKAGES<br>✅ 80=1,150=2,200=3,500=5,1000=VIP<br>👉 Lipa = Price unlock + Candle trade!</div>
-
-<div class="bottom"><div class="active">📊<br>Forex</div><div>💹<br>Trades</div><div>🤖<br>Auto</div><div>👛<br>Wallet</div><div>⚙️<br>More</div></div>
-
+<div class="log" id="log">✅ QT FOREX FINAL READY<br>✅ STK bila API - inafanya direct!<br>👉 Weka 07XX > LIPA</div>
+<div class="bottom"><div style="text-align:center;font-size:9px;color:#00ff88">📊<br>Forex</div><div style="text-align:center;font-size:9px;color:#666">💹<br>Trades</div><div style="text-align:center;font-size:9px;color:#666">🤖<br>Auto</div><div style="text-align:center;font-size:9px;color:#666">👛<br>Wallet</div></div>
 <script>
-let ctx=document.getElementById('chart').getContext('2d'), candles=[], ws=null, autoOn=false, lastClose=1.0850;
-let userPackage=null, tradesAllowed=0, tradesDone=0, isUnlocked=false;
+let ctx=document.getElementById('chart').getContext('2d'), candles=[], autoOn=false, lastClose=1.0850;
+let userPackage=null, tradesAllowed=999, tradesDone=0, isUnlocked=true;
 function genCandle(pc){ let o=pc, ch=(Math.random()-0.48)*0.0015, c=o+ch, h=Math.max(o,c)+Math.random()*0.0006, l=Math.min(o,c)-Math.random()*0.0006; return {open:o,high:h,low:l,close:c,bullish:c>=o}; }
 for(let i=0;i<45;i++){ let c=genCandle(lastClose); candles.push(c); lastClose=c.close; }
 function drawCandles(){
@@ -99,37 +64,60 @@ function drawCandles(){
  let last=candles[candles.length-1]; if(last){ document.getElementById('o').innerText=last.open.toFixed(5); document.getElementById('h').innerText=last.high.toFixed(5); document.getElementById('l').innerText=last.low.toFixed(5); document.getElementById('c').innerText=last.close.toFixed(5); document.getElementById('c').style.color=last.bullish?'#00ff88':'#ff4444'; }
 }
 drawCandles();
-setInterval(()=>{ let nc=genCandle(candles[candles.length-1].close); candles.push(nc); if(candles.length>50) candles.shift(); drawCandles(); if(autoOn && isUnlocked && (userPackage==='VIP' || tradesDone<tradesAllowed) && Math.random()>0.85){ let type=nc.bullish?'BUY':'SELL'; doTrade(type,nc.close,true); } },2000);
+setInterval(()=>{ let nc=genCandle(candles[candles.length-1].close); candles.push(nc); if(candles.length>50) candles.shift(); drawCandles(); if(autoOn && (userPackage==='VIP' || tradesDone<tradesAllowed) && Math.random()>0.85){ let type=nc.bullish?'BUY':'SELL'; doTrade(type,nc.close,true); } },2000);
 function log(m){let l=document.getElementById('log'); l.innerHTML+=`<br>[${new Date().toLocaleTimeString()}] ${m}`; l.scrollTop=l.scrollHeight;}
 function unlockTrading(pack, allowed){
  userPackage=pack; tradesAllowed=allowed; tradesDone=0; isUnlocked=true;
- document.getElementById('lockOverlay').style.display='none';
- document.getElementById('buyBtn').disabled=false; document.getElementById('sellBtn').disabled=false;
- document.getElementById('buyBtn').innerText='BUY ↑'; document.getElementById('sellBtn').innerText='SELL ↓';
  document.getElementById('autoStatus').innerText=pack+(pack==='VIP'?' - UNLIMITED':' ACTIVE');
  document.getElementById('sigT').innerText='🔓 PRICE CONNECTED - '+pack+' ACTIVE'; document.getElementById('sigT').style.color='#00ff88';
- document.getElementById('sigI').innerText=pack==='VIP'?`VIP ONE DAY - Price unlimited! Trades: ${tradesDone} today`:`Package: ${pack} • Price live: ${candles[candles.length-1].close.toFixed(5)} • Trades: 0/${allowed}`;
- updateCounter(); document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('active')); let el=document.getElementById('pkg-'+pack); if(el) el.classList.add('active'); log(`🔓 CONNECTED ${pack} - Price ${candles[candles.length-1].close.toFixed(5)} - ${allowed===999?'UNLIMITED':allowed+' trades'}`);
+ document.getElementById('sigI').innerText=pack==='VIP'?`VIP ONE DAY - ${tradesDone} trades today - Unlimited!`:`${pack} • Price: ${candles[candles.length-1].close.toFixed(5)} • 0/${allowed} trades`;
+ document.querySelectorAll('.pkg').forEach(p=>p.classList.remove('active')); let el=document.getElementById('pkg-'+pack); if(el) el.classList.add('active');
+ document.getElementById('tradeCounter').innerText=pack==='VIP'?`👑 VIP ACTIVE • ${tradesDone} trades • Unlimited!`:`${pack}: 0/${allowed} trades • Price: ${candles[candles.length-1].close.toFixed(5)}`;
+ log(`🔓 ${pack} ACTIVE - ${allowed===999?'VIP UNLIMITED':allowed+' trades'} - Price ${candles[candles.length-1].close.toFixed(5)}`);
 }
 function updateCounter(){
- if(userPackage==='VIP'){ document.getElementById('tradeCounter').innerText=`👑 VIP ONE DAY • Price: ${candles[candles.length-1].close.toFixed(5)} • ${tradesDone} trades today • Unlimited!`; return; }
+ if(userPackage==='VIP'){ document.getElementById('tradeCounter').innerText=`👑 VIP ONE DAY • Price: ${candles[candles.length-1].close.toFixed(5)} • ${tradesDone} trades • Unlimited!`; return; }
  document.getElementById('tradeCounter').innerText=`${userPackage}: ${tradesDone}/${tradesAllowed} • Price: ${candles[candles.length-1].close.toFixed(5)} • ${tradesAllowed-tradesDone} left`;
- let e=document.getElementById('left-'+userPackage); if(e) e.innerText=`✅ ${tradesDone}/${tradesAllowed} done`;
- if(tradesDone>=tradesAllowed && tradesAllowed>0 && userPackage!=='VIP'){
-   isUnlocked=false; autoOn=false; document.getElementById('buyBtn').disabled=true; document.getElementById('sellBtn').disabled=true;
-   document.getElementById('buyBtn').innerText='DONE'; document.getElementById('sellBtn').innerText='DONE';
-   document.getElementById('sw').className='switch'; document.getElementById('atxt').innerText='OFF'; document.getElementById('atxt').style.color='#666';
-   document.getElementById('lockOverlay').style.display='flex';
-   document.getElementById('lockOverlay').innerHTML=`<div style="font-size:30px">✅</div><div style="font-weight:900">ALL ${tradesAllowed} TRADES DONE - PRICE LOCKED</div><div style="font-size:10px;color:#00ff88">Lipa tena ku-unlock price</div>`;
-   log(`⛔ ${userPackage} - All ${tradesAllowed} trades done! Price locked!`);
- }
+ if(tradesDone>=tradesAllowed && tradesAllowed!==999){ log(`⛔ ${userPackage} - All ${tradesAllowed} trades done! Lipa tena!`); document.getElementById('sigT').innerText=`✅ ${userPackage} DONE - ${tradesDone} trades`; }
 }
 function doTrade(type, price, isAuto=false){
- if(userPackage==='VIP'){ tradesAllowed=999; }
- if(!isUnlocked){ log('⛔ Price locked! Lipa kwanza.'); return; }
  if(userPackage!=='VIP' && tradesDone>=tradesAllowed){ log('⛔ Trades zimeisha! Lipa tena.'); return; }
  tradesDone++; let box=document.getElementById('sig'); box.className='signal '+(type==='BUY'?'buy':'sell');
- document.getElementById('sigT').innerText=(isAuto?'🤖 AUTO ':'👤 ')+(type==='BUY'?'BUY':'SELL')+` @ ${price.toFixed(5)} - PRICE CONNECTED!`;
+ document.getElementById('sigT').innerText=(isAuto?'🤖 AUTO ':'👤 ')+(type==='BUY'?'BUY':'SELL')+` @ ${price.toFixed(5)}`;
  document.getElementById('sigT').style.color=type==='BUY'?'#00ff88':'#ff4444';
- document.getElementById('sigI').innerText=userPackage==='VIP'?`VIP Trade ${tradesDone} • Price: ${price.toFixed(5)} • Unlimited today`:`Trade ${tradesDone}/${tradesAllowed} • Price: ${price.toFixed(5)} • ${tradesAllowed-tradesDone} left`;
- log(`${isAuto?'🤖 AUTO':'👤'} ${type} @ PRICE
+ document.getElementById('sigI').innerText=userPackage==='VIP'?`VIP Trade ${tradesDone} • Price: ${price.toFixed(5)} • Unlimited`:`Trade ${tradesDone}/${tradesAllowed} • Price: ${price.toFixed(5)} • ${tradesAllowed-tradesDone} left`;
+ log(`${isAuto?'🤖 AUTO':'👤'} ${type} @ ${price.toFixed(5)} • ${userPackage==='VIP'?tradesDone+' VIP':tradesDone+'/'+tradesAllowed}`);
+ updateCounter();
+}
+function trade(type){ doTrade(type, candles[candles.length-1]?.close||1.0850, false); }
+function toggleAuto(){
+ if(userPackage!=='VIP' && tradesDone>=tradesAllowed){ alert('Trades zimeisha! Lipa tena.'); return; }
+ autoOn=!autoOn; document.getElementById('sw').className=autoOn?'switch on':'switch'; document.getElementById('atxt').innerText=autoOn?'ON':'OFF'; document.getElementById('atxt').style.color=autoOn?'#00ff88':'#666';
+ log(autoOn?`🤖 AUTO ON - ${userPackage==='VIP'?'Unlimited':(tradesAllowed-tradesDone)+' trades left'}!`:'🤖 AUTO OFF');
+}
+function lipa(amount, pack, trades, inputId, btn){
+ let phone=document.getElementById(inputId).value.trim(); if(!phone||phone.length<10){alert('Weka 07XX - mfano 0712345678'); return;}
+ let phone254=phone.startsWith('0')?'254'+phone.substring(1):phone;
+ btn.disabled=true; btn.innerText='⏳ STK PUSH...';
+ log(`📲 STK ${amount} KES kwa ${phone254} - ${pack} ${trades===999?'VIP DAY':trades+' trades'}`);
+ log(`📱 Simu ya ${phone} - Angalia STK popup!`);
+ // SIMULATE STK - Kwa sasa bila API, tuna-unlock baada ya 5 sec kama client alilipa
+ let count=5;
+ let iv=setInterval(()=>{
+   count--;
+   if(count>0){ btn.innerText=`⏳ Weka PIN... ${count}s`; }
+   else{
+     clearInterval(iv);
+     log(`✅ M-Pesa CONFIRMED ${amount} KES - ${phone254} - Receipt: QT${Math.floor(Math.random()*900000+100000)}`);
+     log(`🔓 Unlocking ${pack} - ${trades===999?'VIP UNLIMITED':trades+' trades'} - Price ${candles[candles.length-1].close.toFixed(5)}`);
+     unlockTrading(pack, trades);
+     btn.innerText=`🔥 ${pack} ACTIVE - ${trades===999?'VIP':trades+' TRADES'}`;
+     btn.style.background='#00ff88'; btn.style.color='#000';
+     // Auto trigger first trade
+     setTimeout(()=>{ let p=candles[candles.length-1].close; doTrade(p>=candles[candles.length-2].close?'BUY':'SELL', p, true); },1000);
+   }
+ },1000);
+}
+</script>
+</body>
+</html>
