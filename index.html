@@ -3,197 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QT - MT5 XAUUSD GOLD LIVE $4 DEP</title>
+<title>QT - GOLD VIRTUAL LIVE - PACKAGES ENABLED</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#d1d4dc;font-family:Trebuchet MS,Arial,sans-serif;overflow:hidden}
+.disclaimer{background:#2a2210;border-bottom:2px solid #ffcc00;padding:5px 10px;text-align:center;font-size:8px;color:#ffcc00;font-weight:900}
+.deriv-bar{background:#131722;border-bottom:2px solid #ff0000;padding:7px 10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.deriv-bar button{border:none;padding:6px 12px;border-radius:4px;font-weight:900;font-size:10px;cursor:pointer}
 .mt5-top{background:#131722;display:flex;align-items:center;padding:6px 10px;gap:8px;border-bottom:1px solid #2a2e39;font-size:10px;flex-wrap:wrap}
 .mt5-logo{color:#ffcc00;font-weight:900;font-size:14px} .mt5-logo span{color:#fff}
 .mt5-symbol{background:#1e222d;border:1px solid #ffcc0020;padding:4px 8px;border-radius:4px;display:flex;gap:8px;align-items:center}
 .mt5-lot{background:#1e222d;border:1px solid #ffcc00;padding:4px 8px;border-radius:4px;display:flex;gap:5px;align-items:center}
 .mt5-lot select{background:#000;color:#fff;border:1px solid #2a2e39;padding:2px 4px;border-radius:3px;font-size:10px}
-.mt5-kenya{background:#0a221a;border:1px solid #00ff88;padding:3px 8px;border-radius:12px;font-size:9px;color:#00ff88}
-.chart-wrap{position:relative;background:#000;height:38vh}
+.chart-wrap{position:relative;background:#000;height:32vh}
 canvas{width:100%;height:100%;display:block}
-.ohlc-bar{position:absolute;top:6px;left:10px;font-size:9px;background:rgba(0,0,0,0.85);padding:4px 6px;border-radius:3px;z-index:5;color:#ffcc00}
-.lock-overlay-trade{position:absolute;bottom:0;left:0;right:0;height:110px;background:rgba(0,0,0,0.92);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:15;border-top:2px solid #ffcc00}
+.ohlc-bar{position:absolute;top:6px;left:10px;font-size:9px;background:rgba(0,0,0,0.85);padding:4px 6px;border-radius:3px;z-index:5;color:#00ff88}
+.lock-overlay-trade{position:absolute;bottom:0;left:0;right:0;height:90px;background:rgba(0,0,0,0.90);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:15;border-top:2px solid #ffcc00}
 .mt5-bottom{background:#131722;display:flex;height:62vh;flex-direction:column}
-.deposit-bar{background:#0a221a;border:1px solid #00ff88;border-left:4px solid #00ff88;padding:7px 10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;z-index:20;position:relative}
-.deposit-bar input{padding:5px;background:#000;color:#fff;border:1px solid #00ff88;border-radius:4px;font-size:10px;width:100px}
+.deposit-bar{background:#0a221a;border:1px solid #00ff88;border-left:4px solid #00ff88;padding:7px 10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;z-index:20}
+.deposit-bar input{padding:5px;background:#000;color:#fff;border:1px solid #00ff88;border-radius:4px;font-size:10px;width:90px}
 .deposit-bar button{background:#00ff88;color:#000;border:none;padding:6px 12px;border-radius:4px;font-weight:900;font-size:10px;cursor:pointer}
 .mt5-tabs{display:flex;background:#1e222d;border-bottom:1px solid #2a2e39;font-size:10px}
-.mt5-tabs div{padding:6px 10px;border-right:1px solid #2a2e39;color:#868993} .mt5-tabs div.active{color:#ffcc00;border-bottom:2px solid #ffcc00}
+.mt5-tabs div{padding:5px 10px;border-right:1px solid #2a2e39;color:#868993} .mt5-tabs div.active{color:#ffcc00;border-bottom:2px solid #ffcc00}
 .trade-panel{display:flex;gap:6px;padding:7px;background:#1e222d;align-items:center;position:relative}
 .btn-mt5{flex:1;padding:10px;border:none;border-radius:4px;font-weight:900;font-size:11px;cursor:pointer}
-.btn-buy-mt5{background:#089981;color:#fff} .btn-buy-mt5:disabled{background:#222;color:#666;border:1px solid #333}
-.btn-sell-mt5{background:#f23645;color:#fff} .btn-sell-mt5:disabled{background:#222;color:#666;border:1px solid #333}
+.btn-buy-mt5{background:#089981;color:#fff} .btn-buy-mt5:disabled{background:#333;color:#888;border:1px dashed #555}
+.btn-sell-mt5{background:#f23645;color:#fff} .btn-sell-mt5:disabled{background:#333;color:#888;border:1px dashed #555}
 .lot-display{background:#000;border:1px solid #ffcc00;padding:8px;border-radius:4px;text-align:center;min-width:70px}
 .pkgs-mt5{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:6px;background:#131722}
-.pkg-mt5{background:#1e222d;border:1px solid #2a2e39;border-radius:4px;padding:5px;text-align:center}
-.pkg-mt5 .p{color:#ffcc00;font-weight:900;font-size:11px} .pkg-mt5.active{border:1px solid #ffcc00;background:#2a2210}
+.pkg-mt5{background:#1e222d;border:2px solid #2a2e39;border-radius:6px;padding:6px;text-align:center}
+.pkg-mt5 .p{color:#ffcc00;font-weight:900;font-size:11px} .pkg-mt5.active{border:2px solid #ffcc00;background:#2a2210}
 .pkg-mt5.vip{border-color:#ff9800;background:#2a1a00} .pkg-mt5.vip .p{color:#ff9800}
-input.pkg-input{width:100%;padding:3px;background:#000;border:1px solid #2a2e39;color:#fff;border-radius:3px;font-size:8px;margin-top:2px}
-.btn-pay-mt5{width:100%;background:#ffcc00;color:#000;border:none;padding:4px;border-radius:3px;font-size:8px;margin-top:3px;cursor:pointer;font-weight:900}
-.log-mt5{background:#000;padding:5px;font-size:8px;height:50px;overflow-y:auto;border-top:1px solid #2a2e39}
+input.pkg-input{width:100%;padding:4px;background:#000;border:1px solid #00ff88;color:#fff;border-radius:3px;font-size:9px;margin-top:3px}
+.btn-pay-mt5{width:100%;background:#ffcc00;color:#000;border:none;padding:6px;border-radius:4px;font-size:9px;margin-top:4px;cursor:pointer;font-weight:900}
+.btn-pay-mt5:disabled{background:#333;color:#666}
+.log-mt5{background:#000;padding:5px;font-size:8px;height:42px;overflow-y:auto;border-top:1px solid #2a2e39}
 .signal-mt5{padding:5px 10px;font-size:9px;border-left:3px solid #f23645;background:#1e222d}
-.signal-mt5.unlocked{border-left-color:#ffcc00}
+.signal-mt5.unlocked{border-left-color:#00ff88}
 .balance-usd{background:#1e222d;padding:5px 10px;display:flex;justify-content:space-between;font-size:9px;border-bottom:1px solid #2a2e39;flex-wrap:wrap;gap:6px}
 </style>
 </head>
 <body>
+<div class="disclaimer">⚠️ VIRTUAL TRADING - XAUUSD GOLD SIGNALS FOR LEARNING ONLY - Virtual Balance - No real withdrawal - Packages = Signals - Educational 🇰🇪</div>
+
+<div class="deriv-bar">
+<div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
+<span style="font-size:10px;color:#ff0000;font-weight:900">🔗 DERIV REAL LOGIN - NO API TOKEN:</span>
+<button id="derivLoginBtn" onclick="loginWithDeriv()" style="background:#ff0000;color:#fff">🔐 LOG IN WITH DERIV - REAL ACCOUNT</button>
+<span id="derivStatus" style="font-size:8px;color:#868993">Not logged - Login for commission tracking - Optional</span>
+</div>
+<div id="derivUserInfo" style="display:none;background:#000;border:1px solid #00ff88;padding:4px 8px;border-radius:12px;font-size:9px">
+<span style="color:#00ff88">✅ Deriv:</span> <b id="derivEmail" style="color:#fff">-</b> | <b id="derivBalance" style="color:#ffcc00">$0.00 REAL</b>
+<button onclick="logoutDeriv()" style="background:#f23645;color:#fff;border:none;padding:2px 6px;border-radius:3px;font-size:7px;margin-left:5px">Logout</button>
+</div>
+</div>
+
 <div class="mt5-top">
-<div class="mt5-logo">QT <span>GOLD LIVE $4</span></div>
-<div class="mt5-symbol"><b style="color:#ffcc00">XAUUSD GOLD</b><span style="color:#f23645">BID <b id="bid">2650.50</b></span><span style="color:#089981">ASK <b id="ask">2650.80</b></span><span id="conn" style="color:#ff9800">● GOLD LIVE CHART...</span></div>
+<div class="mt5-logo">QT <span>GOLD LIVE VIRTUAL</span></div>
+<div class="mt5-symbol"><b style="color:#ffcc00">XAUUSD GOLD</b><span style="color:#f23645">BID <b id="bid">2650.50</b></span><span style="color:#089981">ASK <b id="ask">2650.80</b></span><span id="conn" style="color:#00ff88">● LIVE CANDLES MT5...</span></div>
 <div class="mt5-lot">Lot: <select id="lotSelect" onchange="updateLot()"><option value="0.01">0.01</option><option value="0.10" selected>0.10</option><option value="0.20">0.20</option><option value="0.50">0.50</option><option value="1.00">1.00</option></select></div>
-<div class="mt5-kenya">🇰🇪 LIVE $4 MIN</div>
 </div>
 
 <div class="balance-usd">
-<span>Balance: <b id="bal" style="color:#fff">$0.00</b></span><span>Equity: <b id="equity" style="color:#fff">$0.00</b></span><span>Profit: <b id="profit" style="color:#f23645">$0.00</b></span><span>Lot: <b id="lotDisplay" style="color:#ffcc00">0.10</b></span><span id="tradeCounter">📈 CHART LIVE • 🔒 BUY/SELL DEP $4+</span>
+<span>Virtual Balance: <b id="bal" style="color:#ffcc00">$0.00 VIRTUAL</b></span><span>Equity: <b id="equity" style="color:#fff">$0.00</b></span><span>Virtual Profit: <b id="profit" style="color:#f23645">$0.00 VIRTUAL</b></span><span>Lot: <b id="lotDisplay" style="color:#ffcc00">0.10</b></span><span id="tradeCounter">📈 CANDLES LIVE • PACKAGES ENABLED • BUY/SELL $4+</span>
 </div>
 
 <div class="chart-wrap">
-<div class="ohlc-bar" id="ohlc">XAUUSD GOLD $2650 • Lot 0.10 • $1/pip • Chart LIVE kama MT5 - BUY/SELL disabled mpaka $4</div>
+<div class="ohlc-bar" id="ohlc">📈 CANDLES LIVE MT5 - XAUUSD $2650 • PACKAGES ENABLED - BUY/SELL grey mpaka $4 - No disable candles!</div>
 <canvas id="chart"></canvas>
 </div>
 
 <div class="mt5-bottom">
 <div class="deposit-bar">
-<span style="font-size:10px;color:#00ff88;font-weight:900">💰 DEPOSIT $4 MIN - LIVE:</span>
-<input id="depositAmount" type="number" placeholder="$ Min 4 USD" min="4" value="4">
-<input id="depositPhone" placeholder="07XX MPESA Kenya">
-<button onclick="depositCapital()">🇰🇪 DEPOSIT $ TO BALANCE</button>
-<span style="font-size:7px;color:#868993">Min $4 = 520 KES • Max $1000 • Chart LIVE • BUY/SELL disabled mpaka $4</span>
+<span style="font-size:10px;color:#00ff88;font-weight:900">💰 VIRTUAL DEPOSIT $4 MIN - LIVE - CANDLES LIVE:</span>
+<input id="depositAmount" type="number" placeholder="$ Min 4" min="4" value="4">
+<input id="depositPhone" placeholder="07XX MPESA">
+<button onclick="depositCapital()">🇰🇪 DEPOSIT VIRTUAL $</button>
+<span style="font-size:7px;color:#868993">Chart LIVE • Packages ENABLED b4 deposit • Min $4 = 520 KES • No withdrawal</span>
 </div>
 
-<div class="mt5-tabs"><div class="active">📈 GOLD LIVE CHART $4</div><div>📈 History</div><div>🤖 Auto GOLD Bot</div><div>🇰🇪 <span id="statusTab">CHART LIVE - BUY/SELL LOCKED $4</span></div></div>
-<div class="signal-mt5" id="sig"><b id="sigT" style="color:#ffcc00">📈 CHART GOLD LIVE $2650+ - BUY/SELL DISABLED MPAKA $4 - Kama MT5</b><div id="sigI" style="color:#868993;margin-top:2px">XAUUSD GOLD REAL $2650+ LIVE • Chart ina-move kama MT5 halisi • Lot 0.10 = $1/pip • Balance $ • Package 80-1000 KES available • Min Deposit $4 (520 KES) via MPESA Daraja • BUY/SELL greyed mpaka $4</div></div>
+<div class="mt5-tabs"><div class="active">📈 CANDLES LIVE - PACKAGES ENABLED</div><div>📈 History Virtual</div><div>🇰🇪 <span id="statusTab">CANDLES LIVE - PACKAGES ENABLED - BUY/SELL GREY $4+</span></div></div>
+<div class="signal-mt5" id="sig"><b id="sigT" style="color:#00ff88">📈 CANDLES LIVE MT5 - PACKAGES ENABLED - Mtu anaweza nunua package b4 deposit!</b><div id="sigI" style="color:#868993;margin-top:2px">⚠️ VIRTUAL - Candles LIVE kama MT5 halisi - HAKUNA DISABLE ya candles! • Packages 80-1000 KES ENABLED - Unaweza nunua b4 deposit • BUY/SELL grey mpaka $4+ deposit • Lot 0.10 • XAUUSD $2650+ LIVE • Deriv login optional bila API token - OAuth only • No withdrawal - Learning 🇰🇪</div></div>
 
 <div style="position:relative">
 <div id="lockOverlayTrade" class="lock-overlay-trade">
-<div style="font-size:22px">🔒</div>
-<div style="font-weight:900;color:#ffcc00;margin-top:4px;font-size:10px">BUY/SELL DISABLED - CHART LIVE MT5</div>
-<div style="font-size:8px;color:#868993;margin-top:3px;text-align:center">📈 GOLD Chart LIVE $2650+ • Candle zina-move kama MT5 halisi!<br>Package 80-1000 KES available • Deposit $4+ = 520 KES ku-enable BUY/SELL<br>🇰🇪 Daraja Kenya MPESA STK current</div>
+<div style="font-size:18px">📈💰</div>
+<div style="font-weight:900;color:#ffcc00;margin-top:3px;font-size:10px">CANDLES LIVE - BUY/SELL GREY - PACKAGES ENABLED!</div>
+<div style="font-size:8px;color:#00ff88;margin-top:3px;text-align:center">📈 Candles zina-move LIVE MT5 - HAKUNA DISABLE! • Packages 80-1000 KES ENABLED - Nunua b4 deposit!<br>BUY/SELL grey mpaka Package + $4+ deposit • Deposit bar live • Chart ina-move kama MT5 halisi!</div>
 </div>
 <div class="trade-panel">
-<button class="btn-mt5 btn-sell-mt5" id="sellBtn" disabled>🔒 SELL 0.10 GOLD DISABLED - DEP $4+</button>
-<div class="lot-display"><div style="font-size:7px;color:#868993">GOLD LOT</div><b id="lotBtn" style="color:#ffcc00">0.10</b><div style="font-size:7px">$<span id="lotUsd">1.00</span>/pip</div><div style="font-size:6px;color:#00ff88">LIVE CHART</div></div>
-<button class="btn-mt5 btn-buy-mt5" id="buyBtn" disabled>🔒 BUY 0.10 GOLD DISABLED - DEP $4+</button>
+<button class="btn-mt5 btn-sell-mt5" id="sellBtn" disabled>🔒 SELL 0.10 GOLD GREY - CANDLES LIVE - DEP $4+</button>
+<div class="lot-display"><div style="font-size:7px;color:#868993">VIRTUAL LOT</div><b id="lotBtn" style="color:#ffcc00">0.10</b><div style="font-size:7px">$<span id="lotUsd">1.00</span>/pip</div><div style="font-size:6px;color:#00ff88">LIVE</div></div>
+<button class="btn-mt5 btn-buy-mt5" id="buyBtn" disabled>🔒 BUY 0.10 GOLD GREY - CANDLES LIVE - DEP $4+</button>
 </div>
 </div>
 
 <div class="pkgs-mt5">
-<div class="pkg-mt5" id="pkg-Starter"><div style="font-size:7px">🇰🇪 Starter GOLD</div><div class="p">80 KES</div><div style="font-size:6px">1 Trade 0.10</div><input class="pkg-input" id="p1" placeholder="07XX Kenya"><button class="btn-pay-mt5" onclick="lipa(80,'Starter',1,'p1',this)">🇰🇪 LIPA 80 KES</button></div>
-<div class="pkg-mt5" id="pkg-Basic"><div style="font-size:7px">🇰🇪 Basic GOLD</div><div class="p">150 KES</div><div style="font-size:6px">2 Trades 0.10</div><input class="pkg-input" id="p2" placeholder="07XX"><button class="btn-pay-mt5" onclick="lipa(150,'Basic',2,'p2',this)">🇰🇪 LIPA 150 KES</button></div>
-<div class="pkg-mt5" id="pkg-Standard"><div style="font-size:7px">🇰🇪 Standard GOLD</div><div class="p">200 KES</div><div style="font-size:6px">3 Trades 0.10</div><input class="pkg-input" id="p25" placeholder="07XX"><button class="btn-pay-mt5" onclick="lipa(200,'Standard',3,'p25',this)">🇰🇪 LIPA 200 KES</button></div>
-<div class="pkg-mt5" id="pkg-Boost"><div style="font-size:7px">🇰🇪 Boost GOLD</div><div class="p">500 KES</div><div style="font-size:6px">5 Trades 0.10</div><input class="pkg-input" id="p3" placeholder="07XX"><button class="btn-pay-mt5" onclick="lipa(500,'Boost',5,'p3',this)">🇰🇪 LIPA 500 KES</button></div>
-<div class="pkg-mt5 vip" id="pkg-VIP"><div style="font-size:7px">👑 VIP GOLD</div><div class="p">1000 KES</div><div style="font-size:6px">VIP GOLD DAY</div><input class="pkg-input" id="p4" placeholder="07XX"><button class="btn-pay-mt5" style="background:#ff9800" onclick="lipa(1000,'VIP',999,'p4',this)">🇰🇪 LIPA 1000 KES</button></div>
-<div class="pkg-mt5" style="background:#0a221a;border-color:#00ff88"><div style="font-size:7px;color:#00ff88">GOLD USD LIVE</div><div style="font-size:11px;color:#00ff88;font-weight:900" id="usdBal">$0.00</div><div style="font-size:6px;color:#868993">Min $4 = 520 KES</div><div style="font-size:6px;color:#ffcc00">XAUUSD 0.10 LIVE</div></div>
+<div class="pkg-mt5" id="pkg-Starter"><div style="font-size:7px">🇰🇪 Starter ENABLED</div><div class="p">80 KES</div><div style="font-size:6px">1 Virtual Signal</div><div style="font-size:6px;color:#00ff88">ENABLED - Nunua!</div><input class="pkg-input" id="p1" placeholder="07XX Kenya ENABLED"><button class="btn-pay-mt5" onclick="lipa(80,'Starter',1,'p1',this)">🇰🇪 LIPA 80 KES - ENABLED</button></div>
+<div class="pkg-mt5" id="pkg-Basic"><div style="font-size:7px">🇰🇪 Basic ENABLED</div><div class="p">150 KES</div><div style="font-size:6px">2 Virtual Signals</div><div style="font-size:6px;color:#00ff88">ENABLED - Nunua!</div><input class="pkg-input" id="p2" placeholder="07XX ENABLED"><button class="btn-pay-mt5" onclick="lipa(150,'Basic',2,'p2',this)">🇰🇪 LIPA 150 KES - ENABLED</button></div>
+<div class="pkg-mt5" id="pkg-Standard"><div style="font-size:7px">🇰🇪 Standard ENABLED</div><div class="p">200 KES</div><div style="font-size:6px">3 Virtual Signals</div><div style="font-size:6px;color:#00ff88">ENABLED - Nunua!</div><input class="pkg-input" id="p25" placeholder="07XX ENABLED"><button class="btn-pay-mt5" onclick="lipa(200,'Standard',3,'p25',this)">🇰🇪 LIPA 200 KES - ENABLED</button></div>
+<div class="pkg-mt5" id="pkg-Boost"><div style="font-size:7px">🇰🇪 Boost ENABLED</div><div class="p">500 KES</div><div style="font-size:6px">5 Virtual Signals</div><div style="font-size:6px;color:#00ff88">ENABLED - Nunua!</div><input class="pkg-input" id="p3" placeholder="07XX ENABLED"><button class="btn-pay-mt5" onclick="lipa(500,'Boost',5,'p3',this)">🇰🇪 LIPA 500 KES - ENABLED</button></div>
+<div class="pkg-mt5 vip" id="pkg-VIP"><div style="font-size:7px">👑 VIP ENABLED</div><div class="p">1000 KES</div><div style="font-size:6px">VIP Virtual DAY</div><div style="font-size:6px;color:#00ff88">ENABLED - Nunua!</div><input class="pkg-input" id="p4" placeholder="07XX ENABLED"><button class="btn-pay-mt5" style="background:#ff9800" onclick="lipa(1000,'VIP',999,'p4',this)">🇰🇪 LIPA 1000 KES - ENABLED</button></div>
+<div class="pkg-mt5" style="background:#0a221a;border:2px solid #00ff88"><div style="font-size:7px;color:#00ff88">VIRTUAL USD LIVE</div><div style="font-size:11px;color:#00ff88;font-weight:900" id="usdBal">$0.00 VIRTUAL</div><div style="font-size:6px;color:#fff">Candles LIVE MT5</div><div style="font-size:6px;color:#ffcc00">Packages ENABLED b4 $4</div></div>
 </div>
-<div class="log-mt5" id="log">📈 QT XAUUSD GOLD MT5 LIVE - Chart ina-move kama MT5 halisi!<br>💰 GOLD $2650+ REAL - Lot 0.10 min - $1/pip<br>🇰🇪 Package 80-1000 KES available • Min Deposit $4 = 520 KES MPESA<br>🔒 BUY/SELL disabled but chart LIVE - Daraja Kenya current</div>
+<div class="log-mt5" id="log">📈 CANDLES LIVE MT5 - HAKUNA DISABLE ya candles - Zina-move kama MT5 halisi!<br>✅ PACKAGES ENABLED - Mtu anaweza nunua package b4 deposit - Kama ulivyotaka!<br>🔒 BUY/SELL grey mpaka Package + $4 deposit - Deposit bar live - Chart LIVE!<br>🔗 DERIV LOGIN bila API token - OAuth only - Optional commission tracking</div>
 </div>
 
 <script>
-let canvas=document.getElementById('chart'), ctx=canvas.getContext('2d'), candles=[], realPrice=2650.50, lotSize=0.10, balance=0, equity=0, profit=0, tradingBalance=0, paymentConfirmed=false, depositConfirmed=false, tradesAllowed=0, tradesDone=0, userPackage=null, priceSocket=null;
-
+let canvas=document.getElementById('chart'), ctx=canvas.getContext('2d'), candles=[], realPrice=2650.50, lotSize=0.10, balance=0, equity=0, profit=0, paymentConfirmed=false, tradesAllowed=0, tradesDone=0, userPackage=null, priceSocket=null;
 function resize(){ canvas.width=canvas.offsetWidth*2; canvas.height=canvas.offsetHeight*2; ctx.setTransform(2,0,0,2,0,0); } window.addEventListener('resize',resize); resize();
 function log(m){ let l=document.getElementById('log'); l.innerHTML+=`<br>[${new Date().toLocaleTimeString()}] ${m}`; l.scrollTop=l.scrollHeight; }
-function updateLot(){ lotSize=parseFloat(document.getElementById('lotSelect').value); document.getElementById('lotDisplay').innerText=lotSize.toFixed(2); document.getElementById('lotBtn').innerText=lotSize.toFixed(2); document.getElementById('lotUsd').innerText=(lotSize*10).toFixed(2); log(`GOLD Lot ${lotSize.toFixed(2)} - $${(lotSize*10).toFixed(2)}/pip - Chart LIVE`); drawMT5(); }
+function updateLot(){ lotSize=parseFloat(document.getElementById('lotSelect').value); document.getElementById('lotDisplay').innerText=lotSize.toFixed(2); document.getElementById('lotBtn').innerText=lotSize.toFixed(2); document.getElementById('lotUsd').innerText=(lotSize*10).toFixed(2); log(`Lot ${lotSize.toFixed(2)} VIRTUAL - Candles LIVE - Packages ENABLED`); drawMT5(); }
 
 function connectRealGoldPrice(){
-  log('🌍 Connecting REAL XAUUSD GOLD $2650+ LIVE - Chart ita-baki live!');
+  log('🌍 GOLD XAUUSD $2650+ LIVE - CANDLES LIVE - HAKUNA DISABLE!');
   try{
     priceSocket=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
-    priceSocket.onopen=()=>{ log('✅ GOLD XAUUSD LIVE Deriv! Chart LIVE!'); document.getElementById('conn').innerText='● GOLD LIVE CHART $'+realPrice.toFixed(2); document.getElementById('conn').style.color='#00ff88'; priceSocket.send(JSON.stringify({ticks:'frxXAUUSD',subscribe:1})); };
-    priceSocket.onmessage=(msg)=>{ try{ let d=JSON.parse(msg.data); if(d.tick&&d.tick.quote){ realPrice=parseFloat(d.tick.quote); document.getElementById('bid').innerText=(realPrice-0.25).toFixed(2); document.getElementById('ask').innerText=(realPrice+0.25).toFixed(2); document.getElementById('conn').innerText='● GOLD LIVE CHART $'+realPrice.toFixed(2); } }catch(e){} };
-    priceSocket.onerror=()=>{ connectGoldAPI(); };
-    priceSocket.onclose=()=>{ connectGoldAPI(); };
-  }catch(e){ connectGoldAPI(); }
-  function connectGoldAPI(){ setInterval(async()=>{ try{ let res=await fetch('https://api.gold-api.com/price/XAU'); let d=await res.json(); if(d.price){ realPrice=d.price; document.getElementById('bid').innerText=(realPrice-0.25).toFixed(2); document.getElementById('ask').innerText=(realPrice+0.25).toFixed(2); document.getElementById('conn').innerText='● GOLD LIVE CHART $'+realPrice.toFixed(2); } }catch(e){ realPrice+=(Math.random()-0.5)*0.3; document.getElementById('bid').innerText=(realPrice-0.25).toFixed(2); document.getElementById('ask').innerText=(realPrice+0.25).toFixed(2); } },3000); }
-}
-
-function genCandle(pc){ let base=realPrice||pc||2650; let vol=(Math.random()-0.5)*0.8, o=base+vol, c=base+(Math.random()-0.48)*0.6, h=Math.max(o,c)+Math.random()*0.4, l=Math.min(o,c)-Math.random()*0.4; return {open:o,high:h,low:l,close:c,bullish:c>=o}; }
-for(let i=0;i<80;i++){ let c=genCandle(2650); candles.push(c); }
-
-function drawMT5(){
-  let w=canvas.offsetWidth, h=canvas.offsetHeight; ctx.clearRect(0,0,w,h);
-  ctx.strokeStyle='#1e222d'; ctx.lineWidth=0.5; for(let i=1;i<6;i++){ ctx.beginPath(); ctx.moveTo(0,i*h/6); ctx.lineTo(w,i*h/6); ctx.stroke(); }
-  let min=Math.min(...candles.map(c=>c.low)), max=Math.max(...candles.map(c=>c.high)), range=max-min||2;
-  let cw=w/candles.length*0.6, gap=w/candles.length*0.4;
-  candles.forEach((c,i)=>{
-    let x=i*(cw+gap)+gap/2, yH=h-((c.high-min)/range)*h*0.8-20, yL=h-((c.low-min)/range)*h*0.8-20, yO=h-((c.open-min)/range)*h*0.8-20, yC=h-((c.close-min)/range)*h*0.8-20;
-    let color= c.bullish ? '#089981' : '#f23645';
-    ctx.strokeStyle=color; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x+cw/2,yH); ctx.lineTo(x+cw/2,yL); ctx.stroke();
-    ctx.fillStyle=color; let top=Math.min(yO,yC), bh=Math.max(2,Math.abs(yO-yC)); ctx.fillRect(x,top,cw,bh);
-  });
-  let last=candles[candles.length-1]; if(last){
-    document.getElementById('ohlc').innerText=`XAUUSD GOLD $${realPrice.toFixed(2)} • Lot ${lotSize.toFixed(2)} • Bal $${balance.toFixed(2)} • CHART LIVE MT5 • BUY/SELL ${balance>=4?'ENABLED':'DISABLED $4+'}`;
-    document.getElementById('sellBtn').innerText= balance>=4 && paymentConfirmed ? `SELL ${lotSize.toFixed(2)} GOLD $${(realPrice-0.25).toFixed(2)}` : `🔒 SELL ${lotSize.toFixed(2)} GOLD DISABLED - DEP $4+ LIVE CHART`;
-    document.getElementById('buyBtn').innerText= balance>=4 && paymentConfirmed ? `BUY ${lotSize.toFixed(2)} GOLD $${(realPrice+0.25).toFixed(2)}` : `🔒 BUY ${lotSize.toFixed(2)} GOLD DISABLED - DEP $4+ LIVE CHART`;
-  }
-}
-drawMT5();
-// CHART LIVE KILA WAKATI - Hata kama BUY/SELL disabled - Kama MT5 halisi!
-setInterval(()=>{ let nc=genCandle(candles[candles.length-1].close); candles.push(nc); if(candles.length>100) candles.shift(); drawMT5(); },2000);
-setTimeout(connectRealGoldPrice,500);
-
-function unlockMT5(pack, allowed){
-  userPackage=pack; tradesAllowed=allowed; tradesDone=0; paymentConfirmed=true;
-  document.getElementById('statusTab').innerText=pack+` ACTIVE $${balance.toFixed(2)} Lot ${lotSize.toFixed(2)} - CHART LIVE`;
-  document.getElementById('statusTab').style.color='#ffcc00';
-  document.getElementById('tradeCounter').innerText=`${pack}: ${tradesDone}/${allowed===999?'∞':allowed} • $${balance.toFixed(2)} • CHART LIVE`;
-  let sig=document.getElementById('sig'); sig.className='signal-mt5 unlocked';
-  
-  if(balance < 4){
-    document.getElementById('buyBtn').disabled=true; document.getElementById('sellBtn').disabled=true;
-    document.getElementById('lockOverlayTrade').style.display='flex';
-    document.getElementById('lockOverlayTrade').innerHTML=`
-      <div style="font-size:22px">💰</div>
-      <div style="font-weight:900;color:#ff9800;margin-top:4px;font-size:10px">${pack} UNLOCKED - PACKAGE AVAILABLE - CHART LIVE!</div>
-      <div style="font-size:8px;color:#00ff88;margin-top:3px;text-align:center">Package ${pack} available • GOLD Chart LIVE $${realPrice.toFixed(2)} ina-move!<br>Balance $${balance.toFixed(2)} < $4 MIN - Deposit $4+ = 520 KES ndio BUY/SELL i-enable!<br>Deposit bar iko live juu!</div>
-    `;
-    document.getElementById('sigT').innerText=`🔓 ${pack} UNLOCKED - PACKAGE AVAILABLE - CHART LIVE - Balance $${balance.toFixed(2)} < $4 MIN - Deposit $4+!`;
-    document.getElementById('sigT').style.color='#ff9800';
-    document.getElementById('sigI').innerText=`${pack} • Balance $${balance.toFixed(2)} • Chart LIVE $${realPrice.toFixed(2)} ina-move! • Lot ${lotSize.toFixed(2)} = $${(lotSize*10).toFixed(2)}/pip • Deposit $4+ ku-enable BUY/SELL - Kama MT5 halisi!`;
-    log(`✅ ${pack} UNLOCKED - Package available - Chart LIVE $${realPrice.toFixed(2)} - BUY/SELL disabled mpaka $4 - Deposit live!`);
-  } else {
-    document.getElementById('buyBtn').disabled=false; document.getElementById('sellBtn').disabled=false;
-    document.getElementById('lockOverlayTrade').style.display='none';
-    document.getElementById('sigT').innerText=`🔓 READY TO TRADE GOLD LIVE - $${balance.toFixed(2)} - Lot ${lotSize.toFixed(2)} - Chart LIVE!`;
-    document.getElementById('sigT').style.color='#00ff88';
-    document.getElementById('sigI').innerText=`${pack} • Balance $${balance.toFixed(2)} • Lot ${lotSize.toFixed(2)} = $${(lotSize*10).toFixed(2)}/pip • GOLD LIVE $${realPrice.toFixed(2)} • READY!`;
-    log(`✅ ${pack} UNLOCKED + $4 MET - BUY/SELL ENABLED - Chart LIVE!`);
-  }
-  drawMT5();
-}
-
-function doTrade(type, price, isAuto=false){
-  if(!paymentConfirmed){ log('⛔ Package bado - Chart live but BUY/SELL disabled!'); alert('🔒 Lipa package 80-1000 KES kwanza ku-unlock - Chart ina-move kama MT5!'); return; }
-  if(balance < 4){ log('⛔ Balance < $4 min - Chart live but BUY/SELL disabled!'); alert(`⛔ Balance $${balance.toFixed(2)} < $4 MIN! Chart ina-move lakini BUY/SELL disabled! Deposit $4+ = 520 KES via MPESA ndio u-trade GOLD 0.10 lot! Package ${userPackage} available!`); return; }
-  if(userPackage!=='VIP' && tradesDone>=tradesAllowed){ log('⛔ Trades zimeisha! Chart live!'); alert('Trades zimeisha - Lipa package ingine! Chart inaendelea live!'); return; }
-  tradesDone++;
-  let pipValue=lotSize*10; let pips=(Math.random()*20-5); let tradeProfit=pips*pipValue/10; profit+=tradeProfit; balance+=tradeProfit; equity=balance;
-  document.getElementById('sigT').innerText=`${isAuto?'🤖 AUTO GOLD LIVE':'👤 GOLD LIVE'} ${type} ${lotSize.toFixed(2)} LOT @ $${price.toFixed(2)} • P/L $${tradeProfit.toFixed(2)} • ${userPackage}`;
-  document.getElementById('sigT').style.color=type==='BUY'?'#089981':'#f23645';
-  document.getElementById('sigI').innerText=`Trade ${tradesDone}/${tradesAllowed===999?'∞':tradesAllowed} • Lot ${lotSize.toFixed(2)} • $${price.toFixed(2)} • Profit $${profit.toFixed(2)} • Bal $${balance.toFixed(2)} • Chart LIVE!`;
-  document.getElementById('profit').innerText=`$${profit.toFixed(2)}`; document.getElementById('profit').style.color=profit>=0?'#089981':'#f23645';
-  document.getElementById('bal').innerText=`$${balance.toFixed(2)}`; document.getElementById('equity').innerText=`$${equity.toFixed(2)}`; document.getElementById('usdBal').innerText=`$${balance.toFixed(2)}`;
-  log(`GOLD LIVE ${type} ${lotSize.toFixed(2)} @ $${price.toFixed(2)} • $${tradeProfit.toFixed(2)} • Bal $${balance.toFixed(2)} • Chart LIVE`);
-  document.getElementById('tradeCounter').innerText=`${userPackage}: ${tradesDone}/${tradesAllowed===999?'∞':tradesAllowed} • $${balance.toFixed(2)} • CHART LIVE`;
-}
-
-async function depositCapital(){
-  let usd = parseFloat(document.getElementById('depositAmount').value);
-  let phone = document.getElementById('depositPhone').value.trim();
-  if(!usd || usd < 4){ alert('⛔ Min deposit $4! Weka $4 au zaidi - kama broker real! Chart ina-move lakini BUY/SELL disabled mpaka $4!'); return; }
-  if(usd > 1000){ alert('Max deposit $1000'); return; }
-  if(!phone || phone.length < 10){ alert('Weka 07XX Kenya'); return; }
-  let cleanPhone = phone.replace(/\D/g,''); if(cleanPhone.startsWith('0')) cleanPhone='254'+cleanPhone.substring(1);
-  let kesAmount = Math.ceil(usd * 130);
-  log(`💰 Deposit $${usd} = ${kesAmount} KES kwa ${cleanPhone} - Chart LIVE - Min $4 check passed!`);
-  try{
-    let res = await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:kesAmount,phone:cleanPhone,package:`DEPOSIT_${usd}USD`})});
-    let data = await res.json();
-    if(!data.success){ alert(data.message); return; }
-    log(`📲 STK ${kesAmount} KES ($${usd}) kwa ${cleanPhone} - Weka PIN! Chart bado LIVE!`);
-    let checkoutId=data.checkoutId;
+    priceSocket.onopen=()=>{ log('✅ GOLD LIVE Deriv - CANDLES LIVE MT5!'); document.getElementById('conn').innerText='● CANDLES LIVE MT5 $'+realPrice.toFixed(2); document.getElementById('conn').style.color='#00ff88'; priceSocket.send(JSON.stringify({ticks:'frxXAUUSD',subscribe:1})); };
+    priceSocket.onmessage=(msg)=>{ try{ let d=JSON.parse(msg.data); if(d.tick&&d.tick.quote){ realPrice=parseFloat(d.tick.quote); document.getElementById('bid').innerText=(realPrice-0.25).toFixed(2); document.getElementById('ask').innerText=(realPrice+0.25).toFixed(2); document.getElementById('conn').innerText='● CANDLES LIVE MT5 $'+realPrice.toFixed(2); } }catch(e){} };
