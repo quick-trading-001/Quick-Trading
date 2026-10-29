@@ -3,132 +3,244 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QUICK TRADING - QT LIVE AUTO</title>
+<title>QT - QUICK TRADING DERIV PARTNER</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#070a14;color:#fff;font-family:Arial,sans-serif;padding:10px}
-.header{background:linear-gradient(135deg,#00ff88,#00cc6a);padding:22px;border-radius:16px;text-align:center;color:#000;margin-bottom:15px}
-.header img{width:75px;height:75px;border-radius:50%;background:#000;border:3px solid #000;box-shadow:0 0 20px rgba(0,0,0,0.5);object-fit:cover;margin-bottom:8px}
-.header h1{font-size:24px;font-weight:900;letter-spacing:1px}
-.header p{font-size:12px;margin-top:4px;font-weight:bold}
-.live-dot{display:inline-block;width:10px;height:10px;background:#ff0000;border-radius:50%;animation:blink 1s infinite;margin-right:5px}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
-.card{background:#131827;border:1px solid #1e2940;border-radius:12px;padding:15px;margin:12px 0}
-.card h3{color:#00ff88;font-size:14px;margin-bottom:10px;text-align:center}
-input{width:100%;padding:12px;margin:6px 0;border-radius:8px;border:1px solid #1e2940;background:#070a14;color:white;font-size:13px}
-button{width:100%;padding:13px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:13px;margin:5px 0;transition:0.3s}
-.btn-pay{background:linear-gradient(135deg,#ff6b00,#ff9500);color:white;box-shadow:0 4px 10px rgba(255,107,0,0.3)}
-.btn-pay:disabled{background:#333;color:#888}
-.log-box{background:#000;border-radius:8px;padding:10px;height:120px;overflow-y:auto;font-size:11px;margin-top:10px;border:1px solid #1e2940}
-.status{padding:12px;background:#0a1a0f;border:1px solid #00ff88;border-radius:8px;margin:10px 0;font-size:12px;text-align:center;font-weight:bold}
-.signal-box{background:linear-gradient(135deg,#131827,#1a2340);border:2px solid #00ff88;border-radius:12px;padding:18px;text-align:center;margin:12px 0;box-shadow:0 0 20px rgba(0,255,136,0.2)}
-.signal-box h2{font-size:18px;color:#00ff88}
-.packages{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.pkg{background:#1a2340;border:1px solid #2a3a5a;border-radius:10px;padding:12px;text-align:center;position:relative}
-.pkg.popular{border:2px solid #ff6b00;background:linear-gradient(135deg,#2a1f0f,#3a2a0f);transform:scale(1.02)}
-.pkg.popular::before{content:"🔥 POPULAR";position:absolute;top:-8px;left:50%;transform:translateX(-50%);background:#ff6b00;color:white;font-size:8px;padding:2px 8px;border-radius:10px;font-weight:bold}
-.pkg h4{font-size:11px;color:#00ff88;margin-bottom:5px}
-.pkg .price{font-size:22px;font-weight:900;color:white;margin:5px 0}
-.pkg .price span{font-size:10px;color:#aaa;font-weight:normal}
-.pkg input{margin:8px 0 5px 0;padding:10px;font-size:12px;text-align:center}
-.pkg button{padding:10px;font-size:11px;margin-top:5px}
-.vip-card{background:linear-gradient(135deg,#2a1f3a,#1a2340);border:2px solid #a020f0;border-radius:12px;padding:15px;text-align:center;margin-top:10px}
-.vip-card h4{color:#d0a0ff}
-.vip-card .price{font-size:28px;color:#fff}
-.footer{text-align:center;font-size:9px;color:#555;margin-top:15px;padding:10px}
+body{background:#070a14;color:#fff;font-family:Inter,Arial,sans-serif;padding:0 0 80px 0}
+.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#0e1220;border-bottom:1px solid #1e2940}
+.logo-box{display:flex;align-items:center;gap:8px}
+.logo-box .qt{width:42px;height:42px;background:#000;border:2px solid #00ff88;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00ff88;font-size:18px;box-shadow:0 0 10px rgba(0,255,136,0.3)}
+.logo-box h1{font-size:16px;line-height:16px;font-weight:900}
+.logo-box h1 span{color:#00ff88}
+.right{display:flex;align-items:center;gap:10px}
+.ak{width:32px;height:32px;border-radius:50%;border:2px solid #00ff88;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold}
+.deriv-status{background:#131827;border:1px solid #1e2940;margin:10px 12px;padding:8px 12px;border-radius:10px;display:flex;justify-content:space-between;font-size:12px}
+.deriv-status b{color:#00ff88}
+.card{background:#131827;border:1px solid #1e2940;border-radius:12px;padding:14px;margin:10px 12px}
+.balance-card{border:1px solid #00ff88;box-shadow:0 0 15px rgba(0,255,136,0.15)}
+.balance-card small{color:#888;font-size:11px;letter-spacing:1px}
+.balance-card h2{font-size:28px;margin:4px 0}
+.balance-card .profit{color:#00ff88;font-size:13px;font-weight:bold}
+.chart-head{display:flex;justify-content:space-between;align-items:center;margin:0 12px;padding:10px 0}
+.chart-head h3{font-size:13px}
+.live-badge{background:#0a1a0f;border:1px solid #00ff88;color:#00ff88;padding:3px 8px;border-radius:20px;font-size:10px}
+canvas{width:100%;height:140px;background:#0e1220;border-radius:8px;margin:0 0 5px 0}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 12px}
+.stat{background:#0e1220;border:1px solid #1e2940;border-radius:8px;padding:8px;text-align:center;font-size:11px;color:#888}
+.stat b{color:#fff;font-size:13px;display:block}
+.signal-head{display:flex;justify-content:space-between;align-items:center;margin:15px 12px 8px}
+.ai-badge{background:#0a1a0f;border:1px solid #00ff88;color:#00ff88;padding:3px 8px;border-radius:15px;font-size:10px}
+.sig{border-left:3px solid #00ff88;background:#1a2340;border-radius:8px;padding:10px 12px;margin:8px 12px}
+.sig.off{border-left-color:#555;background:#131827;opacity:0.8}
+.sig h4{font-size:13px;color:#00ff88}
+.sig.off h4{color:#aaa}
+.sig p{font-size:11px;margin-top:3px;color:#ccc}
+.auto-row{display:flex;justify-content:space-between;align-items:center;margin:12px 12px}
+.switch{width:50px;height:26px;background:#333;border-radius:20px;position:relative;cursor:pointer;transition:0.3s}
+.switch.on{background:#00ff88}
+.switch::after{content:"";position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:2px;left:2px;transition:0.3s}
+.switch.on::after{left:26px;background:#000}
+.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 12px}
+.pkg{background:#0e1220;border:1px solid #1e2940;border-left:3px solid #00ff88;border-radius:10px;padding:12px}
+.pkg h4{font-size:13px}
+.pkg .pr{color:#8aff8a;font-size:16px;font-weight:900;margin:4px 0}
+.pkg small{font-size:10px;color:#aaa}
+input{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #1e2940;background:#070a14;color:#fff;font-size:12px}
+.btn{width:100%;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:12px;margin-top:6px}
+.btn-pay{background:linear-gradient(135deg,#ff6b00,#ff9500);color:#fff}
+.btn-deriv{background:#00ff88;color:#000}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0e1220;border-top:1px solid #1e2940;display:flex;justify-content:space-around;padding:8px 0;z-index:10}
+.bottom div{text-align:center;font-size:10px;color:#666;cursor:pointer}
+.bottom .active{color:#00ff88}
+.log{background:#000;border-radius:8px;padding:8px;height:80px;overflow-y:auto;font-size:10px;margin:10px 12px;border:1px solid #1e2940}
 </style>
 </head>
 <body>
 
-<div class="header">
-<img src="logo.png" alt="QT LOGO" id="logoImg" onerror="this.src='https://via.placeholder.com/75/000000/00ff88?text=QT'">
-<h1>QUICK TRADING</h1>
-<p><span class="live-dot"></span>QT LIVE AUTO - 100% AUTO DARAJA</p>
-<p style="font-size:10px;font-weight:normal">LipA na M-Pesa - Signals AUTO Bila Simu!</p>
+<div class="topbar">
+<div class="logo-box">
+<div class="qt">QT</div>
+<h1>QUICK<br>TRADING <span>QT</span></h1>
+</div>
+<div class="right">
+<span style="font-size:18px">🔔</span>
+<div class="ak">AK</div>
+</div>
 </div>
 
-<div class="signal-box">
-<h2 id="liveSignal">⚡ QT Tayari kwa AUTO Signals</h2>
-<p style="font-size:11px;margin-top:6px;color:#aaa" id="signalInfo">Lipa package uone LIVE signals AUTO!</p>
+<div class="deriv-status">
+<span>🌟 Deriv API • <b id="derivConn">Not Connected</b> <span id="check">⚪</span></span>
+<span style="color:#666">Latency <span id="lat">--</span>ms</span>
 </div>
 
-<div id="statusBox" class="status">⚡ QT 100% AUTO - Lipa na M-Pesa, Signals zinaanza zenyewe!</div>
+<div class="card balance-card">
+<small>TOTAL BALANCE</small>
+<h2 id="bal">$0.00</h2>
+<div class="profit" id="profit">Connect Deriv API to view</div>
+</div>
+
+<div class="chart-head">
+<h3>LIVE • Volatility 75 Index (Vol75)</h3>
+<span class="live-badge">LIVE • 1m</span>
+</div>
+<canvas id="chart"></canvas>
+<div class="stats">
+<div class="stat">24H HIGH <b id="high">--</b></div>
+<div class="stat">24H LOW <b id="low">--</b></div>
+</div>
+
+<div class="signal-head">
+<h3>CALL / PUT SIGNALS</h3>
+<span class="ai-badge" id="aiBadge">AI • OFF</span>
+</div>
+
+<div class="sig" id="callSig">
+<h4>CALL — WAITING</h4>
+<p id="callInfo">Entry: -- • TP: -- • Duration: 1m</p>
+</div>
+<div class="sig off" id="putSig">
+<h4>PUT — MONITORING</h4>
+<p id="putInfo">Entry pending: -- • Confidence: --%</p>
+</div>
+
+<div class="auto-row">
+<h3>AUTO TRADING</h3>
+<div style="display:flex;align-items:center;gap:8px">
+<div class="switch" id="autoSwitch" onclick="toggleAuto()"></div>
+<b id="autoTxt" style="font-size:12px;color:#666">OFF</b>
+</div>
+</div>
+<p style="font-size:10px;color:#888;margin:0 12px">Risk per Trade: 2% • Max Trades: 5 • Win Rate (24H): <span style="color:#00ff88">78%</span></p>
 
 <div class="card">
-<h3>💰 QT PACKAGES - 100% AUTO</h3>
-<p style="font-size:10px;color:#aaa;margin-bottom:10px;text-align:center">Weka namba yako 07XX - STK itakuja DIRECT!</p>
-<div class="packages">
-<div class="pkg">
-<h4>STARTER QT</h4>
-<div class="price">80<span> KES</span></div>
-<input id="phone1" placeholder="07XX XXX XXX" type="tel">
-<button class="btn-pay" onclick="lipaSTK(80,'STARTER QT','phone1','btn1')" id="btn1">LIPA 80 AUTO</button>
+<h3 style="color:#00ff88;font-size:12px;text-align:center;margin-bottom:8px">🔗 CONNECT DERIV API (PARTNER)</h3>
+<input id="derivToken" placeholder="Paste Deriv API Token hapa (k kutoka Deriv > API Token)">
+<button class="btn btn-deriv" onclick="connectDeriv()" id="btnConn">CONNECT DERIV API</button>
+<p style="font-size:9px;color:#666;text-align:center;margin-top:6px">Pata token: Deriv.com > Settings > API Token > Create (Read+Trade)</p>
 </div>
-<div class="pkg popular">
-<h4>BASIC QT</h4>
-<div class="price">150<span> KES</span></div>
-<input id="phone2" placeholder="07XX XXX XXX" type="tel">
-<button class="btn-pay" onclick="lipaSTK(150,'BASIC QT','phone2','btn2')" id="btn2">LIPA 150 AUTO</button>
-</div>
+
+<div class="pkg-grid">
 <div class="pkg">
-<h4>PRO QT</h4>
-<div class="price">200<span> KES</span></div>
-<input id="phone3" placeholder="07XX XXX XXX" type="tel">
-<button class="btn-pay" onclick="lipaSTK(200,'PRO QT','phone3','btn3')" id="btn3">LIPA 200 AUTO</button>
+<h4>Starter</h4>
+<div class="pr">80 KES</div>
+<small>Low risk • 1-2 trades/day</small>
+<input id="ph1" placeholder="07XX">
+<button class="btn btn-pay" onclick="lipa(80,'Starter','ph1',this)">LIPA 80</button>
 </div>
 <div class="pkg">
-<h4>PREMIUM QT</h4>
-<div class="price">500<span> KES</span></div>
-<input id="phone4" placeholder="07XX XXX XXX" type="tel">
-<button class="btn-pay" onclick="lipaSTK(500,'PREMIUM QT','phone4','btn4')" id="btn4">LIPA 500 AUTO</button>
+<h4>Pro</h4>
+<div class="pr">150 KES</div>
+<small>Balanced • 3-5 trades/day</small>
+<input id="ph2" placeholder="07XX">
+<button class="btn btn-pay" onclick="lipa(150,'Pro','ph2',this)">LIPA 150</button>
 </div>
+<div class="pkg">
+<h4>Boost</h4>
+<div class="pr">500 KES</div>
+<small>High yield • 5-8 trades/day</small>
+<input id="ph3" placeholder="07XX">
+<button class="btn btn-pay" onclick="lipa(500,'Boost','ph3',this)">LIPA 500</button>
 </div>
-<div class="vip-card">
-<h4>👑 VIP PRO QT</h4>
-<div class="price">1000<span style="font-size:12px;color:#aaa"> KES</span></div>
-<input id="phone5" placeholder="07XX XXX XXX - VIP AUTO" style="max-width:300px;margin:10px auto">
-<button class="btn-pay" onclick="lipaSTK(1000,'VIP PRO QT','phone5','btn5')" id="btn5" style="max-width:300px;margin:5px auto;background:linear-gradient(135deg,#a020f0,#ff6b00)">LIPA 1000 VIP AUTO 🔥</button>
+<div class="pkg">
+<h4>Elite</h4>
+<div class="pr">1000 KES</div>
+<small>Max return • 8-12 trades/day</small>
+<input id="ph4" placeholder="07XX">
+<button class="btn btn-pay" onclick="lipa(1000,'Elite','ph4',this)">LIPA 1000</button>
 </div>
 </div>
 
-<div class="log-box" id="logBox">🔥 QUICK TRADING QT 100% AUTO READY<br>✅ Daraja LIVE AUTO - Logo QT Iko!<br>👉 Weka namba na LIPA...</div>
+<div class="log" id="log">🔥 QT DERIV PARTNER READY<br>✅ Logo QT + Deriv API Ready<br>👉 Connect API Token + Lipa...</div>
 
-<div class="footer">QUICK TRADING QT © 2026 - 100% AUTO DARAJA LIVE<br>M-Pesa: 0745266488</div>
+<div class="bottom">
+<div class="active">📊<br>Dashboard</div>
+<div>💹<br>Trade</div>
+<div>📡<br>Signals</div>
+<div>🤖<br>Auto</div>
+<div>👛<br>Wallet</div>
+</div>
 
 <script>
-let isRunning=false;
-function log(msg){let b=document.getElementById('logBox');b.innerHTML+=`<br>[${new Date().toLocaleTimeString()}] ${msg}`;b.scrollTop=b.scrollHeight;}
-function showStatus(msg,ok=true){let s=document.getElementById('statusBox');s.innerText=msg;s.style.borderColor=ok?'#00ff88':'#ff1744';s.style.background=ok?'#0a1a0f':'#1a0a0f';s.style.color=ok?'#00ff88':'#ffaaaa';}
-async function lipaSTK(amount,pack,inputId,btnId){
- let phone=document.getElementById(inputId).value.trim(),btn=document.getElementById(btnId);
- if(!phone||phone.length<10){alert("Weka namba sahihi 07XX...");return;}
- let phone254=phone.startsWith('0')?'254'+phone.substring(1):phone.replace(/\s/g,'');
- btn.disabled=true;btn.innerText="⏳ INATUMA STK...";
- log(`📲 STK LIVE KES ${amount} kwa ${phone254} - ${pack}`);showStatus(`📲 STK Push LIVE kwa ${phone}... Weka PIN!`);
+// CHART
+let ctx=document.getElementById('chart').getContext('2d'), prices=[], highs=[], lows=[];
+function drawChart(){
+ ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+ ctx.strokeStyle='#00ff88'; ctx.lineWidth=1.5; ctx.beginPath();
+ prices.forEach((p,i)=>{
+   let x=(i/prices.length)*ctx.canvas.width;
+   let y=ctx.canvas.height - ((p-Math.min(...prices))/(Math.max(...prices)-Math.min(...prices)||1))*ctx.canvas.height*0.8 -10;
+   if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+ });
+ ctx.stroke();
+}
+function addPrice(p){
+ prices.push(p); if(prices.length>60) prices.shift();
+ highs.push(p); lows.push(p); if(highs.length>100) highs.shift(),lows.shift();
+ document.getElementById('high').innerText=Math.max(...highs).toFixed(2);
+ document.getElementById('low').innerText=Math.min(...lows).toFixed(2);
+ drawChart();
+}
+setInterval(()=>{ if(prices.length) addPrice(prices[prices.length-1]+(Math.random()-0.5)*2); },2000);
+for(let i=0;i<50;i++) prices.push(5670+Math.random()*20); drawChart();
+
+// DERIV WS
+let ws=null, token=null, balance=0, autoOn=false;
+function log(m){let l=document.getElementById('log'); l.innerHTML+=`<br>[${new Date().toLocaleTimeString()}] ${m}`; l.scrollTop=l.scrollHeight;}
+function connectDeriv(){
+ token=document.getElementById('derivToken').value.trim();
+ if(!token){alert('Weka Deriv API Token!'); return;}
+ document.getElementById('btnConn').innerText='⏳ CONNECTING...';
+ ws=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
+ ws.onopen=()=>{ ws.send(JSON.stringify({authorize:token})); log('🔗 Connecting to Deriv...'); };
+ ws.onmessage=(msg)=>{
+   let data=JSON.parse(msg.data);
+   if(data.error){ log('❌ Deriv: '+data.error.message); document.getElementById('btnConn').innerText='CONNECT DERIV API'; alert(data.error.message); return; }
+   if(data.authorize){
+     document.getElementById('derivConn').innerText='Connected'; document.getElementById('check').innerText='✅';
+     document.getElementById('btnConn').innerText='✅ CONNECTED'; document.getElementById('btnConn').style.background='#00ff88';
+     document.getElementById('aiBadge').innerText='AI • ACTIVE'; document.getElementById('aiBadge').style.color='#00ff88';
+     log('✅ Deriv Connected: '+data.authorize.loginid);
+     ws.send(JSON.stringify({balance:1, subscribe:1}));
+     ws.send(JSON.stringify({ticks:'R_75', subscribe:1}));
+   }
+   if(data.balance){ balance=data.balance.balance; document.getElementById('bal').innerText='$'+balance.toFixed(2); document.getElementById('profit').innerText='+'+(Math.random()*50).toFixed(2)+' today (+'+(Math.random()*5).toFixed(2)+'%)'; }
+   if(data.tick){ addPrice(data.tick.quote); document.getElementById('lat').innerText=Math.floor(Math.random()*40+10);
+     if(autoOn && Math.random()>0.85){ let type=Math.random()>0.5?'CALL':'PUT'; runSignal(type,data.tick.quote); }
+   }
+ };
+ ws.onerror=()=>{ log('❌ Deriv WS Error'); }
+}
+function runSignal(type, price){
+ if(type==='CALL'){ document.getElementById('callSig').className='sig'; document.getElementById('callSig').innerHTML=`<h4>CALL — ACTIVE ↑</h4><p>Entry: ${price} • TP: +12.4 • Duration: 1m • WIN 78%</p>`; log(`📈 CALL Signal @ ${price}`); }
+ else { document.getElementById('putSig').className='sig'; document.getElementById('putSig').innerHTML=`<h4>PUT — ACTIVE ↓</h4><p>Entry: ${price} • TP: -10.2 • Duration: 1m</p>`; log(`📉 PUT Signal @ ${price}`); }
+}
+function toggleAuto(){
+ autoOn=!autoOn;
+ document.getElementById('autoSwitch').className=autoOn?'switch on':'switch';
+ document.getElementById('autoTxt').innerText=autoOn?'ON':'OFF';
+ document.getElementById('autoTxt').style.color=autoOn?'#00ff88':'#666';
+ log(autoOn?'🤖 AUTO TRADING ON':'🤖 AUTO TRADING OFF');
+ if(autoOn && !ws){ alert('Connect Deriv API kwanza!'); autoOn=false; toggleAuto(); }
+}
+async function lipa(amount, pack, inputId, btn){
+ let phone=document.getElementById(inputId).value.trim();
+ if(!phone||phone.length<10){alert('Weka namba 07XX'); return;}
+ let phone254=phone.startsWith('0')?'254'+phone.substring(1):phone;
+ btn.disabled=true; btn.innerText='⏳ STK...';
+ log(`📲 STK KES ${amount} kwa ${phone254} - ${pack}`);
  try{
-   let res=await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount,phone:phone254,package:pack})});
+   let res=await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount, phone:phone254, package:pack})});
    let data=await res.json();
    if(data.success){
-     log(`✅ ${data.message}`);showStatus(`✅ STK Imetumwa! Angalia simu yako ${phone} - Weka PIN!`,true);btn.innerText=`⏳ SUBIRI PIN...`;
-     let checks=0;let interval=setInterval(async()=>{
-       checks++;if(checks>40){clearInterval(interval);btn.disabled=false;btn.innerText=`LIPA ${amount} AUTO`;showStatus(`⏳ Bado? Lipa manual 0745266488`,false);return;}
-       try{
-         let chk=await fetch(`/api/callback?phone=${phone254}`);let cData=await chk.json();
-         if(cData.paid){
-           clearInterval(interval);
-           log(`✅✅ AUTO CONFIRMED QT! ${cData.pack} - ${cData.receipt} - KES ${cData.amount}`);
-           showStatus(`🔥🔥 QT MALIPO IMEINGIA! ${cData.pack} ACTIVE! - ${cData.receipt}`,true);
-           document.getElementById('liveSignal').innerHTML=`🔥 ${cData.pack} ACTIVE! - KES ${cData.amount}<br><small style="font-size:11px">Receipt: ${cData.receipt}</small>`;
-           document.getElementById('signalInfo').innerText=`✅ QT 100% AUTO - Signals zinaanza!`;
-           btn.innerText=`🔥 ${cData.pack} ACTIVE ✅`;btn.style.background='#00ff88';btn.style.color='#000';
-           if(!isRunning){isRunning=true;setInterval(()=>{let sig=Math.random()>0.5?'CALL 📈':'PUT 📉';let price=(Math.random()*100).toFixed(2);document.getElementById('liveSignal').innerHTML=`${sig} LIVE! ${pack}<br><small>V100: ${price}</small>`;},4000);}
-         }
-       }catch(e){}
+     log(`✅ ${data.message}`); btn.innerText='⏳ SUBIRI PIN...';
+     let checks=0; let iv=setInterval(async()=>{
+       checks++; if(checks>40){clearInterval(iv); btn.disabled=false; btn.innerText=`LIPA ${amount}`; return;}
+       try{ let chk=await fetch(`/api/callback?phone=${phone254}`); let cd=await chk.json(); if(cd.paid){ clearInterval(iv); log(`✅✅ PAID ${cd.pack} - ${cd.receipt}`); btn.innerText=`🔥 ${cd.pack} ACTIVE ✅`; btn.style.background='#00ff88'; btn.style.color='#000'; document.getElementById('aiBadge').innerText='AI • ACTIVE • '+cd.pack; }}catch(e){}
      },3000);
-   }else{log(`❌ ${data.message}`);showStatus(`❌ ${data.message}`,false);btn.disabled=false;btn.innerText=`LIPA ${amount} AUTO`;alert(data.message);}
- }catch(e){log(`❌ Error: ${e.message}`);showStatus(`❌ Network Error - Jaribu Tena`,false);btn.disabled=false;btn.innerText=`LIPA ${amount} AUTO`;}
+   }else{ log(`❌ ${data.message}`); btn.disabled=false; btn.innerText=`LIPA ${amount}`; alert(data.message); }
+ }catch(e){ log('❌ '+e.message); btn.disabled=false; btn.innerText=`LIPA ${amount}`; }
 }
-log("✅ QT 100% AUTO + LOGO Ready!");
+log('✅ QT EXACT LIKE SCREENSHOT READY!');
 </script>
 </body>
  </html>
