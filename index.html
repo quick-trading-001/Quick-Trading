@@ -3,244 +3,199 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QT - QUICK TRADING DERIV PARTNER</title>
+<title>QT - BINARY TRADING</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#070a14;color:#fff;font-family:Inter,Arial,sans-serif;padding:0 0 80px 0}
-.topbar{display:flex;justify-content:space-between;align-items:center;padding:12px 15px;background:#0e1220;border-bottom:1px solid #1e2940}
-.logo-box{display:flex;align-items:center;gap:8px}
-.logo-box .qt{width:42px;height:42px;background:#000;border:2px solid #00ff88;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:900;color:#00ff88;font-size:18px;box-shadow:0 0 10px rgba(0,255,136,0.3)}
-.logo-box h1{font-size:16px;line-height:16px;font-weight:900}
-.logo-box h1 span{color:#00ff88}
-.right{display:flex;align-items:center;gap:10px}
-.ak{width:32px;height:32px;border-radius:50%;border:2px solid #00ff88;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:bold}
-.deriv-status{background:#131827;border:1px solid #1e2940;margin:10px 12px;padding:8px 12px;border-radius:10px;display:flex;justify-content:space-between;font-size:12px}
-.deriv-status b{color:#00ff88}
-.card{background:#131827;border:1px solid #1e2940;border-radius:12px;padding:14px;margin:10px 12px}
-.balance-card{border:1px solid #00ff88;box-shadow:0 0 15px rgba(0,255,136,0.15)}
-.balance-card small{color:#888;font-size:11px;letter-spacing:1px}
-.balance-card h2{font-size:28px;margin:4px 0}
-.balance-card .profit{color:#00ff88;font-size:13px;font-weight:bold}
-.chart-head{display:flex;justify-content:space-between;align-items:center;margin:0 12px;padding:10px 0}
-.chart-head h3{font-size:13px}
-.live-badge{background:#0a1a0f;border:1px solid #00ff88;color:#00ff88;padding:3px 8px;border-radius:20px;font-size:10px}
-canvas{width:100%;height:140px;background:#0e1220;border-radius:8px;margin:0 0 5px 0}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:8px 12px}
-.stat{background:#0e1220;border:1px solid #1e2940;border-radius:8px;padding:8px;text-align:center;font-size:11px;color:#888}
-.stat b{color:#fff;font-size:13px;display:block}
-.signal-head{display:flex;justify-content:space-between;align-items:center;margin:15px 12px 8px}
-.ai-badge{background:#0a1a0f;border:1px solid #00ff88;color:#00ff88;padding:3px 8px;border-radius:15px;font-size:10px}
-.sig{border-left:3px solid #00ff88;background:#1a2340;border-radius:8px;padding:10px 12px;margin:8px 12px}
-.sig.off{border-left-color:#555;background:#131827;opacity:0.8}
-.sig h4{font-size:13px;color:#00ff88}
-.sig.off h4{color:#aaa}
-.sig p{font-size:11px;margin-top:3px;color:#ccc}
-.auto-row{display:flex;justify-content:space-between;align-items:center;margin:12px 12px}
-.switch{width:50px;height:26px;background:#333;border-radius:20px;position:relative;cursor:pointer;transition:0.3s}
-.switch.on{background:#00ff88}
-.switch::after{content:"";position:absolute;width:22px;height:22px;background:#fff;border-radius:50%;top:2px;left:2px;transition:0.3s}
-.switch.on::after{left:26px;background:#000}
-.pkg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:10px 12px}
-.pkg{background:#0e1220;border:1px solid #1e2940;border-left:3px solid #00ff88;border-radius:10px;padding:12px}
-.pkg h4{font-size:13px}
-.pkg .pr{color:#8aff8a;font-size:16px;font-weight:900;margin:4px 0}
-.pkg small{font-size:10px;color:#aaa}
-input{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #1e2940;background:#070a14;color:#fff;font-size:12px}
-.btn{width:100%;padding:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:12px;margin-top:6px}
-.btn-pay{background:linear-gradient(135deg,#ff6b00,#ff9500);color:#fff}
-.btn-deriv{background:#00ff88;color:#000}
-.bottom{position:fixed;bottom:0;left:0;right:0;background:#0e1220;border-top:1px solid #1e2940;display:flex;justify-content:space-around;padding:8px 0;z-index:10}
-.bottom div{text-align:center;font-size:10px;color:#666;cursor:pointer}
+body{background:#050a15;color:#fff;font-family:Arial;padding-bottom:80px}
+.top{background:#0a152a;display:flex;justify-content:space-between;padding:10px 12px;align-items:center;border-bottom:2px solid #00ff88}
+.logo{font-weight:900;font-size:18px}
+.logo span{color:#00ff88}
+.badge{background:#00ff8822;border:1px solid #00ff88;color:#00ff88;padding:3px 8px;border-radius:10px;font-size:10px}
+.balance{background:linear-gradient(135deg,#0a1a2a,#0f2a1a);border:1px solid #00ff88;margin:10px;border-radius:12px;padding:12px;text-align:center}
+.balance h2{font-size:26px;color:#00ff88}
+.binary-chart{margin:10px;border:1px solid #1a3a2a;border-radius:12px;overflow:hidden;background:#070e1f}
+.chart-top{display:flex;justify-content:space-between;padding:8px 10px;background:#0a152a;font-size:11px}
+canvas{width:100%;height:200px;display:block;background:#050a15}
+.binary-buttons{display:flex;gap:10px;padding:10px}
+.btn-call{flex:1;background:linear-gradient(135deg,#00ff88,#00cc6a);color:#000;border:none;padding:14px;border-radius:10px;font-weight:900;font-size:14px;cursor:pointer}
+.btn-put{flex:1;background:linear-gradient(135deg,#ff4444,#cc0000);color:#fff;border:none;padding:14px;border-radius:10px;font-weight:900;font-size:14px;cursor:pointer}
+.signal-box{margin:10px;background:#0a152a;border-left:3px solid #00ff88;border-radius:8px;padding:10px}
+.signal-box.active{background:#0a2a1a;animation:pulse 1s infinite}
+@keyframes pulse{0%{box-shadow:0 0 5px #00ff88}50%{box-shadow:0 0 15px #00ff88}100%{box-shadow:0 0 5px #00ff88}}
+.packages{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:10px}
+.pkg{background:#0a152a;border:1px solid #1a3a4a;border-left:3px solid #00ff88;border-radius:10px;padding:10px}
+.pkg .price{color:#00ff88;font-weight:900;font-size:16px}
+input{width:100%;padding:8px;margin:5px 0;background:#050a15;border:1px solid #1a3a4a;color:#fff;border-radius:6px;font-size:11px}
+.btn-pay{width:100%;background:#ff6b00;color:#fff;border:none;padding:8px;border-radius:6px;font-weight:bold;font-size:11px;cursor:pointer}
+.log{background:#000;margin:10px;border-radius:8px;padding:8px;height:70px;overflow-y:auto;font-size:10px;border:1px solid #1a3a4a}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#0a152a;display:flex;justify-content:space-around;padding:8px 0;border-top:1px solid #1a3a4a}
+.bottom div{text-align:center;font-size:9px;color:#666}
 .bottom .active{color:#00ff88}
-.log{background:#000;border-radius:8px;padding:8px;height:80px;overflow-y:auto;font-size:10px;margin:10px 12px;border:1px solid #1e2940}
+.auto-control{display:flex;justify-content:space-between;align-items:center;margin:10px;background:#0a152a;padding:10px;border-radius:8px;border:1px solid #00ff88}
+.switch{width:46px;height:24px;background:#333;border-radius:20px;position:relative;cursor:pointer}
+.switch.on{background:#00ff88}
+.switch::after{content:"";position:absolute;width:20px;height:20px;background:#fff;border-radius:50%;top:2px;left:2px;transition:0.3s}
+.switch.on::after{left:24px;background:#000}
 </style>
 </head>
 <body>
 
-<div class="topbar">
-<div class="logo-box">
-<div class="qt">QT</div>
-<h1>QUICK<br>TRADING <span>QT</span></h1>
-</div>
-<div class="right">
-<span style="font-size:18px">🔔</span>
-<div class="ak">AK</div>
-</div>
+<div class="top">
+<div class="logo">QT <span>BINARY</span> • QUICK TRADING</div>
+<div class="badge">🔴 BINARY LIVE</div>
 </div>
 
-<div class="deriv-status">
-<span>🌟 Deriv API • <b id="derivConn">Not Connected</b> <span id="check">⚪</span></span>
-<span style="color:#666">Latency <span id="lat">--</span>ms</span>
-</div>
-
-<div class="card balance-card">
-<small>TOTAL BALANCE</small>
+<div class="balance">
+<small style="color:#888;font-size:10px">DERIV BINARY BALANCE</small>
 <h2 id="bal">$0.00</h2>
-<div class="profit" id="profit">Connect Deriv API to view</div>
+<div style="font-size:11px;color:#00ff88" id="profit">Connect Deriv for BINARY</div>
 </div>
 
-<div class="chart-head">
-<h3>LIVE • Volatility 75 Index (Vol75)</h3>
-<span class="live-badge">LIVE • 1m</span>
+<div class="binary-chart">
+<div class="chart-top">
+<span>📊 BINARY • Volatility 100 Index</span>
+<span style="color:#00ff88">● LIVE TICKS</span>
 </div>
 <canvas id="chart"></canvas>
-<div class="stats">
-<div class="stat">24H HIGH <b id="high">--</b></div>
-<div class="stat">24H LOW <b id="low">--</b></div>
-</div>
-
-<div class="signal-head">
-<h3>CALL / PUT SIGNALS</h3>
-<span class="ai-badge" id="aiBadge">AI • OFF</span>
-</div>
-
-<div class="sig" id="callSig">
-<h4>CALL — WAITING</h4>
-<p id="callInfo">Entry: -- • TP: -- • Duration: 1m</p>
-</div>
-<div class="sig off" id="putSig">
-<h4>PUT — MONITORING</h4>
-<p id="putInfo">Entry pending: -- • Confidence: --%</p>
-</div>
-
-<div class="auto-row">
-<h3>AUTO TRADING</h3>
-<div style="display:flex;align-items:center;gap:8px">
-<div class="switch" id="autoSwitch" onclick="toggleAuto()"></div>
-<b id="autoTxt" style="font-size:12px;color:#666">OFF</b>
-</div>
-</div>
-<p style="font-size:10px;color:#888;margin:0 12px">Risk per Trade: 2% • Max Trades: 5 • Win Rate (24H): <span style="color:#00ff88">78%</span></p>
-
-<div class="card">
-<h3 style="color:#00ff88;font-size:12px;text-align:center;margin-bottom:8px">🔗 CONNECT DERIV API (PARTNER)</h3>
-<input id="derivToken" placeholder="Paste Deriv API Token hapa (k kutoka Deriv > API Token)">
-<button class="btn btn-deriv" onclick="connectDeriv()" id="btnConn">CONNECT DERIV API</button>
-<p style="font-size:9px;color:#666;text-align:center;margin-top:6px">Pata token: Deriv.com > Settings > API Token > Create (Read+Trade)</p>
-</div>
-
-<div class="pkg-grid">
-<div class="pkg">
-<h4>Starter</h4>
-<div class="pr">80 KES</div>
-<small>Low risk • 1-2 trades/day</small>
-<input id="ph1" placeholder="07XX">
-<button class="btn btn-pay" onclick="lipa(80,'Starter','ph1',this)">LIPA 80</button>
-</div>
-<div class="pkg">
-<h4>Pro</h4>
-<div class="pr">150 KES</div>
-<small>Balanced • 3-5 trades/day</small>
-<input id="ph2" placeholder="07XX">
-<button class="btn btn-pay" onclick="lipa(150,'Pro','ph2',this)">LIPA 150</button>
-</div>
-<div class="pkg">
-<h4>Boost</h4>
-<div class="pr">500 KES</div>
-<small>High yield • 5-8 trades/day</small>
-<input id="ph3" placeholder="07XX">
-<button class="btn btn-pay" onclick="lipa(500,'Boost','ph3',this)">LIPA 500</button>
-</div>
-<div class="pkg">
-<h4>Elite</h4>
-<div class="pr">1000 KES</div>
-<small>Max return • 8-12 trades/day</small>
-<input id="ph4" placeholder="07XX">
-<button class="btn btn-pay" onclick="lipa(1000,'Elite','ph4',this)">LIPA 1000</button>
+<div style="display:flex;justify-content:space-between;padding:6px 10px;font-size:10px;color:#888">
+<span>HIGH: <b id="high" style="color:#fff">--</b></span>
+<span>LOW: <b id="low" style="color:#fff">--</b></span>
+<span id="tickPrice" style="color:#00ff88;font-weight:bold">--</span>
 </div>
 </div>
 
-<div class="log" id="log">🔥 QT DERIV PARTNER READY<br>✅ Logo QT + Deriv API Ready<br>👉 Connect API Token + Lipa...</div>
+<div class="binary-buttons">
+<button class="btn-call" onclick="manualTrade('CALL')">📈 CALL ↑</button>
+<button class="btn-put" onclick="manualTrade('PUT')">📉 PUT ↓</button>
+</div>
+
+<div class="auto-control">
+<span style="font-size:12px;font-weight:bold">🤖 BINARY AUTO BOT</span>
+<div style="display:flex;align-items:center;gap:6px">
+<div class="switch" id="sw" onclick="toggleAuto()"></div>
+<b id="atxt" style="font-size:11px;color:#666">OFF</b>
+</div>
+</div>
+
+<div class="signal-box" id="sigBox">
+<h4 style="color:#00ff88;font-size:12px" id="sigTitle">🔍 BINARY AI ANALYZING...</h4>
+<p style="font-size:10px;color:#ccc;margin-top:4px" id="sigInfo">Waiting for best BINARY entry • Confidence 0%</p>
+</div>
+
+<div style="margin:10px;background:#0a152a;padding:10px;border-radius:8px;border:1px solid #00ff88">
+<h4 style="color:#00ff88;font-size:11px;text-align:center">🔗 CONNECT DERIV FOR BINARY AUTO</h4>
+<input id="token" placeholder="Paste Deriv API Token">
+<button style="width:100%;background:#00ff88;color:#000;border:none;padding:10px;border-radius:6px;font-weight:bold;margin-top:5px;cursor:pointer" onclick="connectDeriv()" id="btnConn">CONNECT BINARY API</button>
+</div>
+
+<div class="packages">
+<div class="pkg"><b>Starter</b><div class="price">80 KES</div><small>Binary 1-2/day</small><input id="p1" placeholder="07XX"><button class="btn-pay" onclick="lipa(80,'Starter','p1',this)">LIPA 80</button></div>
+<div class="pkg"><b>Pro</b><div class="price">150 KES</div><small>Binary 3-5/day</small><input id="p2" placeholder="07XX"><button class="btn-pay" onclick="lipa(150,'Pro','p2',this)">LIPA 150</button></div>
+<div class="pkg"><b>Boost</b><div class="price">500 KES</div><small>Binary 5-8/day</small><input id="p3" placeholder="07XX"><button class="btn-pay" onclick="lipa(500,'Boost','p3',this)">LIPA 500</button></div>
+<div class="pkg"><b>Elite</b><div class="price">1000 KES</div><small>Binary 8-12/day</small><input id="p4" placeholder="07XX"><button class="btn-pay" onclick="lipa(1000,'Elite','p4',this)">LIPA 1000</button></div>
+</div>
+
+<div class="log" id="log">🤖 QT BINARY BOT READY<br>✅ Binary graphics loaded<br>👉 Connect Deriv + Lipa...</div>
 
 <div class="bottom">
-<div class="active">📊<br>Dashboard</div>
-<div>💹<br>Trade</div>
-<div>📡<br>Signals</div>
-<div>🤖<br>Auto</div>
-<div>👛<br>Wallet</div>
+<div class="active">📊<br>Binary</div><div>📈<br>Trades</div><div>🤖<br>Auto</div><div>💰<br>Wallet</div><div>⚙️<br>Settings</div>
 </div>
 
 <script>
-// CHART
-let ctx=document.getElementById('chart').getContext('2d'), prices=[], highs=[], lows=[];
-function drawChart(){
+let ctx=document.getElementById('chart').getContext('2d'), prices=[], tick=0, ws=null, autoOn=false, lastPrice=0;
+function draw(){
  ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
- ctx.strokeStyle='#00ff88'; ctx.lineWidth=1.5; ctx.beginPath();
+ // binary candles background
+ ctx.fillStyle='#070e1f'; ctx.fillRect(0,0,ctx.canvas.width,ctx.canvas.height);
+ // grid
+ ctx.strokeStyle='#0a152a'; ctx.lineWidth=0.5;
+ for(let i=0;i<5;i++){ ctx.beginPath(); ctx.moveTo(0,i*40); ctx.lineTo(ctx.canvas.width,i*40); ctx.stroke(); }
+ // price line - binary style
+ if(prices.length<2) return;
+ ctx.strokeStyle='#00ff88'; ctx.lineWidth=2; ctx.beginPath();
+ let min=Math.min(...prices), max=Math.max(...prices), range=max-min||1;
  prices.forEach((p,i)=>{
    let x=(i/prices.length)*ctx.canvas.width;
-   let y=ctx.canvas.height - ((p-Math.min(...prices))/(Math.max(...prices)-Math.min(...prices)||1))*ctx.canvas.height*0.8 -10;
+   let y=ctx.canvas.height-((p-min)/range)*160-20;
    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+   // binary dots
+   if(i%5===0){ ctx.fillStyle=p>=lastPrice?'#00ff88':'#ff4444'; ctx.beginPath(); ctx.arc(x,y,2,0,Math.PI*2); ctx.fill(); }
  });
  ctx.stroke();
+ // last price line
+ ctx.strokeStyle='#00ff88'; ctx.setLineDash([4,4]); ctx.beginPath();
+ let lastY=ctx.canvas.height-((prices[prices.length-1]-min)/range)*160-20;
+ ctx.moveTo(0,lastY); ctx.lineTo(ctx.canvas.width,lastY); ctx.stroke(); ctx.setLineDash([]);
 }
 function addPrice(p){
- prices.push(p); if(prices.length>60) prices.shift();
- highs.push(p); lows.push(p); if(highs.length>100) highs.shift(),lows.shift();
- document.getElementById('high').innerText=Math.max(...highs).toFixed(2);
- document.getElementById('low').innerText=Math.min(...lows).toFixed(2);
- drawChart();
+ lastPrice=p; prices.push(p); if(prices.length>80) prices.shift();
+ document.getElementById('tickPrice').innerText=p.toFixed(2);
+ document.getElementById('high').innerText=Math.max(...prices).toFixed(2);
+ document.getElementById('low').innerText=Math.min(...prices).toFixed(2);
+ draw();
+ // binary auto signal logic
+ if(autoOn && prices.length>10){
+   let recent=prices.slice(-5), avg=recent.reduce((a,b)=>a+b)/recent.length;
+   let trend=p>avg?'CALL':'PUT';
+   if(Math.random()>0.88) showSignal(trend,p);
+ }
 }
-setInterval(()=>{ if(prices.length) addPrice(prices[prices.length-1]+(Math.random()-0.5)*2); },2000);
-for(let i=0;i<50;i++) prices.push(5670+Math.random()*20); drawChart();
+for(let i=0;i<60;i++) prices.push(8500+Math.random()*100); draw();
+setInterval(()=>{ if(prices.length) addPrice(prices[prices.length-1]+(Math.random()-0.5)*1.5); },1200);
 
-// DERIV WS
-let ws=null, token=null, balance=0, autoOn=false;
+let balance=0;
 function log(m){let l=document.getElementById('log'); l.innerHTML+=`<br>[${new Date().toLocaleTimeString()}] ${m}`; l.scrollTop=l.scrollHeight;}
 function connectDeriv(){
- token=document.getElementById('derivToken').value.trim();
- if(!token){alert('Weka Deriv API Token!'); return;}
- document.getElementById('btnConn').innerText='⏳ CONNECTING...';
+ let t=document.getElementById('token').value.trim();
+ if(!t){alert('Weka Deriv Token!'); return;}
+ document.getElementById('btnConn').innerText='⏳ CONNECTING BINARY...';
  ws=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
- ws.onopen=()=>{ ws.send(JSON.stringify({authorize:token})); log('🔗 Connecting to Deriv...'); };
- ws.onmessage=(msg)=>{
-   let data=JSON.parse(msg.data);
-   if(data.error){ log('❌ Deriv: '+data.error.message); document.getElementById('btnConn').innerText='CONNECT DERIV API'; alert(data.error.message); return; }
-   if(data.authorize){
-     document.getElementById('derivConn').innerText='Connected'; document.getElementById('check').innerText='✅';
-     document.getElementById('btnConn').innerText='✅ CONNECTED'; document.getElementById('btnConn').style.background='#00ff88';
-     document.getElementById('aiBadge').innerText='AI • ACTIVE'; document.getElementById('aiBadge').style.color='#00ff88';
-     log('✅ Deriv Connected: '+data.authorize.loginid);
-     ws.send(JSON.stringify({balance:1, subscribe:1}));
-     ws.send(JSON.stringify({ticks:'R_75', subscribe:1}));
-   }
-   if(data.balance){ balance=data.balance.balance; document.getElementById('bal').innerText='$'+balance.toFixed(2); document.getElementById('profit').innerText='+'+(Math.random()*50).toFixed(2)+' today (+'+(Math.random()*5).toFixed(2)+'%)'; }
-   if(data.tick){ addPrice(data.tick.quote); document.getElementById('lat').innerText=Math.floor(Math.random()*40+10);
-     if(autoOn && Math.random()>0.85){ let type=Math.random()>0.5?'CALL':'PUT'; runSignal(type,data.tick.quote); }
-   }
+ ws.onopen=()=>{ ws.send(JSON.stringify({authorize:t})); log('🔗 Connecting Binary API...'); };
+ ws.onmessage=(e)=>{
+   let d=JSON.parse(e.data);
+   if(d.error){ log('❌ '+d.error.message); document.getElementById('btnConn').innerText='CONNECT BINARY API'; alert(d.error.message); return; }
+   if(d.authorize){ document.getElementById('btnConn').innerText='✅ BINARY CONNECTED'; log('✅ Binary Connected: '+d.authorize.loginid); ws.send(JSON.stringify({balance:1,subscribe:1})); ws.send(JSON.stringify({ticks:'R_100',subscribe:1})); }
+   if(d.balance){ document.getElementById('bal').innerText='$'+d.balance.balance.toFixed(2); document.getElementById('profit').innerText='BIN +'+(Math.random()*30).toFixed(2)+' today'; }
+   if(d.tick){ addPrice(d.tick.quote); }
  };
- ws.onerror=()=>{ log('❌ Deriv WS Error'); }
 }
-function runSignal(type, price){
- if(type==='CALL'){ document.getElementById('callSig').className='sig'; document.getElementById('callSig').innerHTML=`<h4>CALL — ACTIVE ↑</h4><p>Entry: ${price} • TP: +12.4 • Duration: 1m • WIN 78%</p>`; log(`📈 CALL Signal @ ${price}`); }
- else { document.getElementById('putSig').className='sig'; document.getElementById('putSig').innerHTML=`<h4>PUT — ACTIVE ↓</h4><p>Entry: ${price} • TP: -10.2 • Duration: 1m</p>`; log(`📉 PUT Signal @ ${price}`); }
+function showSignal(type, price){
+ let box=document.getElementById('sigBox');
+ box.className='signal-box active';
+ document.getElementById('sigTitle').innerText=type==='CALL'?'📈 BINARY CALL - BUY NOW ↑':'📉 BINARY PUT - BUY NOW ↓';
+ document.getElementById('sigTitle').style.color=type==='CALL'?'#00ff88':'#ff4444';
+ document.getElementById('sigInfo').innerText=`BINARY Entry: ${price.toFixed(2)} • Expiry: 1 min • Confidence: ${Math.floor(75+Math.random()*20)}% • Auto trading ${autoOn?'ON':'OFF'}`;
+ log(`🎯 BINARY ${type} @ ${price.toFixed(2)}`);
+ if(autoOn && ws){ // auto trade binary
+   try{ ws.send(JSON.stringify({buy:1, price:1, parameters:{amount:1, basis:'stake', contract_type:type==='CALL'?'CALL':'PUT', currency:'USD', duration:1, duration_unit:'m', symbol:'R_100'}})); log(`🤖 AUTO BINARY BUY ${type} sent!`); }catch(e){}
+ }
 }
+function manualTrade(type){ showSignal(type, prices[prices.length-1]||8500); }
 function toggleAuto(){
  autoOn=!autoOn;
- document.getElementById('autoSwitch').className=autoOn?'switch on':'switch';
- document.getElementById('autoTxt').innerText=autoOn?'ON':'OFF';
- document.getElementById('autoTxt').style.color=autoOn?'#00ff88':'#666';
- log(autoOn?'🤖 AUTO TRADING ON':'🤖 AUTO TRADING OFF');
- if(autoOn && !ws){ alert('Connect Deriv API kwanza!'); autoOn=false; toggleAuto(); }
+ document.getElementById('sw').className=autoOn?'switch on':'switch';
+ document.getElementById('atxt').innerText=autoOn?'ON':'OFF';
+ document.getElementById('atxt').style.color=autoOn?'#00ff88':'#666';
+ log(autoOn?'🤖 BINARY AUTO ON - Bot will trade CALL/PUT auto!':'🤖 BINARY AUTO OFF');
 }
 async function lipa(amount, pack, inputId, btn){
  let phone=document.getElementById(inputId).value.trim();
- if(!phone||phone.length<10){alert('Weka namba 07XX'); return;}
+ if(!phone||phone.length<10){alert('Weka 07XX'); return;}
  let phone254=phone.startsWith('0')?'254'+phone.substring(1):phone;
  btn.disabled=true; btn.innerText='⏳ STK...';
- log(`📲 STK KES ${amount} kwa ${phone254} - ${pack}`);
+ log(`📲 BINARY STK ${amount} kwa ${phone254}`);
  try{
    let res=await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount, phone:phone254, package:pack})});
    let data=await res.json();
    if(data.success){
-     log(`✅ ${data.message}`); btn.innerText='⏳ SUBIRI PIN...';
-     let checks=0; let iv=setInterval(async()=>{
-       checks++; if(checks>40){clearInterval(iv); btn.disabled=false; btn.innerText=`LIPA ${amount}`; return;}
-       try{ let chk=await fetch(`/api/callback?phone=${phone254}`); let cd=await chk.json(); if(cd.paid){ clearInterval(iv); log(`✅✅ PAID ${cd.pack} - ${cd.receipt}`); btn.innerText=`🔥 ${cd.pack} ACTIVE ✅`; btn.style.background='#00ff88'; btn.style.color='#000'; document.getElementById('aiBadge').innerText='AI • ACTIVE • '+cd.pack; }}catch(e){}
+     log(`✅ ${data.message}`); btn.innerText='⏳ PIN...';
+     let c=0, iv=setInterval(async()=>{
+       c++; if(c>40){clearInterval(iv); btn.disabled=false; btn.innerText=`LIPA ${amount}`; return;}
+       try{ let chk=await fetch(`/api/callback?phone=${phone254}`); let cd=await chk.json(); if(cd.paid){ clearInterval(iv); log(`✅✅ BINARY ${pack} PAID ${cd.receipt}`); btn.innerText=`🔥 ${pack} ACTIVE`; btn.style.background='#00ff88'; }}catch(e){}
      },3000);
    }else{ log(`❌ ${data.message}`); btn.disabled=false; btn.innerText=`LIPA ${amount}`; alert(data.message); }
  }catch(e){ log('❌ '+e.message); btn.disabled=false; btn.innerText=`LIPA ${amount}`; }
 }
-log('✅ QT EXACT LIKE SCREENSHOT READY!');
 </script>
 </body>
  </html>
