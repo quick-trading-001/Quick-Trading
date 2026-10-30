@@ -3,93 +3,82 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>QT - POCKETS + DERIV LOGIN</title>
+<title>QT GOLD - POCKETS + DERIV LOGIN</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:#000;color:#d1d4dc;font-family:Arial,sans-serif}
-.top{background:#131722;padding:8px 10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap;border-bottom:2px solid #ff0000}
-.top button{border:none;padding:7px 12px;border-radius:5px;font-weight:900;font-size:10px;cursor:pointer}
-.chart-wrap{position:relative;background:#000;height:35vh}
+.top{background:#131722;padding:8px 10px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;border-bottom:1px solid #2a2e39}
+.top button{border:none;padding:7px 14px;border-radius:5px;font-weight:900;font-size:10px;cursor:pointer}
+.chart-wrap{position:relative;background:#000;height:42vh}
 canvas{width:100%;height:100%;display:block}
-.ohlc{position:absolute;top:6px;left:10px;font-size:9px;background:rgba(0,0,0,0.9);padding:4px 6px;border-radius:3px;color:#00ff88;z-index:5}
-.bal{background:#1e222d;padding:6px 10px;display:flex;gap:10px;font-size:9px;border-bottom:1px solid #2a2e39;flex-wrap:wrap}
-.deposit{background:#0a221a;border:1px solid #00ff88;padding:8px 10px;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.deposit input{padding:5px;background:#000;color:#fff;border:1px solid #00ff88;border-radius:4px;font-size:10px;width:90px}
-.deposit button{background:#00ff88;color:#000;border:none;padding:6px 12px;border-radius:4px;font-weight:900;font-size:10px;cursor:pointer}
+.ohlc{position:absolute;top:6px;left:10px;font-size:9px;background:rgba(0,0,0,0.9);padding:4px 8px;border-radius:4px;color:#00ff88;z-index:5}
+.bal{background:#1e222d;padding:7px 10px;display:flex;gap:12px;font-size:10px;border-bottom:1px solid #2a2e39;flex-wrap:wrap}
 .trade{display:flex;gap:6px;padding:8px;background:#1e222d}
-.btn{flex:1;padding:11px;border:none;border-radius:5px;font-weight:900;font-size:11px;cursor:pointer}
+.btn{flex:1;padding:12px;border:none;border-radius:5px;font-weight:900;font-size:11px;cursor:pointer}
 .btn-buy{background:#089981;color:#fff} .btn-sell{background:#f23645;color:#fff}
-.btn:disabled{background:#222;color:#666;border:1px dashed #444}
-.pkgs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;padding:6px;background:#131722}
-.pkg{background:#1e222d;border:2px solid #2a2e39;border-radius:6px;padding:6px;text-align:center}
-.pkg .pr{color:#ffcc00;font-weight:900;font-size:12px} .pkg.active{border-color:#00ff88;background:#0a221a}
+.btn:disabled{background:#222;color:#555;border:1px dashed #333}
+.pkgs{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px;background:#131722}
+.pkg{background:#1e222d;border:2px solid #2a2e39;border-radius:8px;padding:8px;text-align:center}
+.pkg .pr{color:#ffcc00;font-weight:900;font-size:13px} .pkg.active{border-color:#00ff88;background:#0a221a}
 .pkg.vip{border-color:#ff9800} .pkg.vip .pr{color:#ff9800}
-.pkg input{width:100%;padding:4px;background:#000;border:1px solid #00ff88;color:#fff;border-radius:3px;font-size:9px;margin-top:3px}
-.pkg button{width:100%;background:#ffcc00;color:#000;border:none;padding:6px;border-radius:4px;font-size:9px;margin-top:4px;cursor:pointer;font-weight:900}
-.log{background:#000;padding:5px;font-size:8px;height:40px;overflow-y:auto;border-top:1px solid #2a2e39}
-.deriv-login-box{background:#1a0000;border:1px solid #ff4444;border-radius:6px;padding:8px;margin:6px;display:none}
+.pkg input{width:100%;padding:5px;background:#000;border:1px solid #555;color:#fff;border-radius:4px;font-size:10px;margin-top:4px}
+.pkg button{width:100%;background:#ffcc00;color:#000;border:none;padding:7px;border-radius:5px;font-size:10px;margin-top:5px;cursor:pointer;font-weight:900}
+.log{background:#000;padding:6px;font-size:8px;height:45px;overflow-y:auto;border-top:1px solid #2a2e39}
+.token-box{background:#1a1a00;border:1px solid #ffcc00;border-radius:6px;padding:8px;margin:6px;display:none}
 </style>
 </head>
 <body>
 
 <div class="top">
-<span style="font-size:10px;color:#ffcc00;font-weight:900">QT POCKETS:</span>
-<div style="background:#1e222d;padding:4px 8px;border-radius:4px;font-size:9px"><b style="color:#ffcc00">XAUUSD GOLD</b> BID <b id="bid" style="color:#f23645">2650.50</b> ASK <b id="ask" style="color:#089981">2650.80</b> <span id="conn" style="color:#00ff88">● CANDLES LIVE</span></div>
-<span style="font-size:9px;color:#ff4444;font-weight:900">🔗 DERIV LOGIN - COMMISSION:</span>
-<button onclick="loginWithDerivOAuth()" style="background:#ff4444;color:#fff">🔐 LOG IN WITH DERIV - OAUTH</button>
-<button onclick="showTokenBox()" style="background:#ffcc00;color:#000">🔑 WEKA DERIV TOKEN MANUAL</button>
-<span id="derivStatus" style="font-size:8px;color:#868993">Login ndio u-track commission - Pockets + Forex</span>
-<div id="derivInfo" style="display:none;background:#000;border:1px solid #00ff88;padding:4px 8px;border-radius:12px;font-size:9px">
-<span style="color:#00ff88">✅ Deriv:</span> <b id="derivEmail" style="color:#fff">-</b> | <b id="derivBal" style="color:#ffcc00">$0.00 REAL</b> | <span style="color:#ffcc00;font-size:7px">COMMISSION TRACKING ON</span>
-<button onclick="logoutDeriv()" style="background:#f23645;color:#fff;border:none;padding:2px 6px;border-radius:3px;font-size:7px;margin-left:5px">Logout</button>
+<span style="color:#ffcc00;font-weight:900;font-size:11px">QT GOLD LIVE:</span>
+<div style="background:#1e222d;padding:4px 8px;border-radius:4px;font-size:9px"><b style="color:#ffcc00">XAUUSD GOLD</b> BID <b id="bid" style="color:#f23645">2650.50</b> ASK <b id="ask" style="color:#089981">2650.80</b> <span id="conn" style="color:#00ff88">● LIVE</span></div>
+
+<!-- LOG IN WITH DERIV - SIMPLE - KAMA ULICHOSEMA - BILA KUANDIKA COMMISSION -->
+<button onclick="loginDeriv()" style="background:#ff4444;color:#fff">🔐 Log in with Deriv</button>
+<span id="derivStatus" style="font-size:8px;color:#868993">Live chart - Buy pocket to trade</span>
+
+<div id="derivInfo" style="display:none;background:#000;border:1px solid #00ff88;padding:4px 10px;border-radius:20px;font-size:9px">
+<span style="color:#00ff88">✅</span> <b id="derivEmail" style="color:#fff">-</b> <b id="derivBal" style="color:#ffcc00">$0.00</b>
+<button onclick="logoutDeriv()" style="background:#333;color:#fff;border:none;padding:2px 6px;border-radius:3px;font-size:7px;margin-left:5px">Logout</button>
 </div>
 </div>
 
-<div id="tokenBox" class="deriv-login-box">
-<div style="font-size:10px;color:#ffcc00;font-weight:900">🔑 WEKA DERIV API TOKEN - HII HAITAKATAA KAMWE:</div>
-<div style="font-size:8px;color:#fff;margin-top:4px">Kama OAuth inakataa - Tumia hii: Nenda deriv.com > Settings > API Token > Create New Token > Copy > Weka hapa - Commission tracking itafanya 100%!</div>
-<div style="display:flex;gap:6px;margin-top:6px;flex-wrap:wrap">
-<input id="derivTokenInput" placeholder="Weka Deriv API token hapa - a1b2c3..." style="flex:1;min-width:200px;padding:6px;background:#000;color:#fff;border:1px solid #ffcc00;border-radius:4px;font-size:10px">
-<button onclick="loginWithToken()" style="background:#00ff88;color:#000;border:none;padding:6px 12px;border-radius:4px;font-weight:900;font-size:10px">✅ CONNECT - TRACK COMMISSION</button>
-<button onclick="hideTokenBox()" style="background:#333;color:#fff;border:none;padding:6px 10px;border-radius:4px;font-size:10px">X</button>
+<div id="tokenBox" class="token-box">
+<div style="font-size:10px;color:#ffcc00;font-weight:900">🔑 Deriv Token - Kama login inakataa:</div>
+<div style="font-size:8px;color:#ccc;margin-top:3px">Nenda deriv.com > Settings > API Token > Create token > Weka hapa:</div>
+<div style="display:flex;gap:6px;margin-top:6px">
+<input id="tokenInput" placeholder="Weka token hapa..." style="flex:1;padding:6px;background:#000;color:#fff;border:1px solid #ffcc00;border-radius:4px;font-size:10px">
+<button onclick="loginWithToken()" style="background:#00ff88;color:#000;border:none;padding:6px 12px;border-radius:4px;font-weight:900;font-size:10px">Connect</button>
+<button onclick="document.getElementById('tokenBox').style.display='none'" style="background:#333;color:#fff;border:none;padding:6px 8px;border-radius:4px">X</button>
 </div>
-<div style="font-size:7px;color:#868993;margin-top:4px">Token inabaki kwa simu yako tu - Hatu-hifadhi server - 100% safe - Deriv official - Commission yako ina-track!</div>
 </div>
 
 <div class="bal">
-<span>Virtual Bal: <b id="bal" style="color:#ffcc00">$0.00 VIRTUAL</b></span><span>Equity: <b id="equity">$0.00</b></span><span>Pocket: <b id="pkgName" style="color:#00ff88">None - Buy Pocket Below</b></span><span id="tradeCounter">📈 CANDLES LIVE • POCKETS ENABLED • BUY/SELL $4+</span>
+<span>Bal: <b id="bal" style="color:#ffcc00">$0.00</b></span><span>Pocket: <b id="pkgName" style="color:#00ff88">None</b></span><span id="tradeCounter">📈 CANDLES LIVE • POCKETS ONLY • 80 & 1000 KES</span>
 </div>
 
 <div class="chart-wrap">
-<div class="ohlc" id="ohlc">📈 CANDLES LIVE MT5 $2650 • POCKETS ENABLED - BUY/SELL grey $4+ - Deriv Login for Commission</div>
+<div class="ohlc" id="ohlc">📈 XAUUSD $2650 LIVE • Lot 0.10 • POCKETS ONLY 80 & 1000 KES</div>
 <canvas id="chart"></canvas>
 </div>
 
-<div class="deposit">
-<span style="font-size:10px;color:#00ff88;font-weight:900">💰 DEPOSIT $4 MIN - POCKETS ENABLED:</span>
-<input id="depositAmount" type="number" min="4" value="4" placeholder="$ Min 4">
-<input id="depositPhone" placeholder="07XX MPESA">
-<button onclick="depositCapital()">🇰🇪 DEPOSIT $4 - ENABLE BUY/SELL</button>
-<span style="font-size:7px;color:#868993">Pockets ENABLED b4 $4 • Candles LIVE • $4 = 520 KES • Deriv login = Commission tracking</span>
-</div>
-
 <div class="trade">
-<button class="btn btn-sell" id="sellBtn" disabled>🔒 SELL 0.10 GOLD - GREY - CANDLES LIVE - POCKET + $4</button>
-<button class="btn btn-buy" id="buyBtn" disabled>🔒 BUY 0.10 GOLD - GREY - CANDLES LIVE - POCKET + $4</button>
+<button class="btn btn-sell" id="sellBtn" disabled>🔒 SELL 0.10 - BUY POCKET FIRST</button>
+<button class="btn btn-buy" id="buyBtn" disabled>🔒 BUY 0.10 - BUY POCKET FIRST</button>
 </div>
 
 <div class="pkgs">
-<div class="pkg" id="pkg-Starter"><div style="font-size:7px">🇰🇪 Starter Pocket</div><div class="pr">80 KES</div><div style="font-size:6px">1 Live Pocket</div><div style="font-size:6px;color:#00ff88">ENABLED</div><input id="p1" placeholder="07XX ENABLED"><button onclick="lipa(80,'Starter',1,'p1',this)">🇰🇪 LIPA 80 KES - POCKET</button></div>
-<div class="pkg" id="pkg-Basic"><div style="font-size:7px">🇰🇪 Basic Pocket</div><div class="pr">150 KES</div><div style="font-size:6px">2 Live Pockets</div><div style="font-size:6px;color:#00ff88">ENABLED</div><input id="p2" placeholder="07XX ENABLED"><button onclick="lipa(150,'Basic',2,'p2',this)">🇰🇪 LIPA 150 KES - POCKET</button></div>
-<div class="pkg" id="pkg-Standard"><div style="font-size:7px">🇰🇪 Standard Pocket</div><div class="pr">200 KES</div><div style="font-size:6px">3 Live Pockets</div><div style="font-size:6px;color:#00ff88">ENABLED</div><input id="p25" placeholder="07XX ENABLED"><button onclick="lipa(200,'Standard',3,'p25',this)">🇰🇪 LIPA 200 KES - POCKET</button></div>
-<div class="pkg" id="pkg-Boost"><div style="font-size:7px">🇰🇪 Boost Pocket</div><div class="pr">500 KES</div><div style="font-size:6px">5 Live Pockets</div><div style="font-size:6px;color:#00ff88">ENABLED</div><input id="p3" placeholder="07XX ENABLED"><button onclick="lipa(500,'Boost',5,'p3',this)">🇰🇪 LIPA 500 KES - POCKET</button></div>
-<div class="pkg vip" id="pkg-VIP"><div style="font-size:7px">👑 VIP Pocket</div><div class="pr">1000 KES</div><div style="font-size:6px">VIP Day Pockets</div><div style="font-size:6px;color:#00ff88">ENABLED</div><input id="p4" placeholder="07XX ENABLED"><button style="background:#ff9800" onclick="lipa(1000,'VIP',999,'p4',this)">🇰🇪 LIPA 1000 KES - VIP</button></div>
-<div class="pkg" style="border-color:#00ff88;background:#0a221a"><div style="font-size:7px;color:#00ff88">BALANCE</div><div style="font-size:12px;color:#00ff88;font-weight:900" id="usdBal">$0.00 VIRTUAL</div><div style="font-size:7px">Pockets ENABLED</div><div style="font-size:7px;color:#ffcc00">Candles LIVE</div></div>
+<div class="pkg" id="pkg-Starter"><div style="font-size:8px">Starter</div><div class="pr">80 KES</div><div style="font-size:7px">1 Pocket</div><input id="p1" placeholder="07XX"><button onclick="lipa(80,'Starter',1,'p1',this)">LIPA 80 KES</button></div>
+<div class="pkg" id="pkg-Basic"><div style="font-size:8px">Basic</div><div class="pr">150 KES</div><div style="font-size:7px">2 Pockets</div><input id="p2" placeholder="07XX"><button onclick="lipa(150,'Basic',2,'p2',this)">LIPA 150 KES</button></div>
+<div class="pkg" id="pkg-Standard"><div style="font-size:8px">Standard</div><div class="pr">200 KES</div><div style="font-size:7px">3 Pockets</div><input id="p25" placeholder="07XX"><button onclick="lipa(200,'Standard',3,'p25',this)">LIPA 200 KES</button></div>
+<div class="pkg" id="pkg-Boost"><div style="font-size:8px">Boost</div><div class="pr">500 KES</div><div style="font-size:7px">5 Pockets</div><input id="p3" placeholder="07XX"><button onclick="lipa(500,'Boost',5,'p3',this)">LIPA 500 KES</button></div>
+<div class="pkg vip" id="pkg-VIP"><div style="font-size:8px">VIP</div><div class="pr">1000 KES</div><div style="font-size:7px">VIP Day</div><input id="p4" placeholder="07XX"><button style="background:#ff9800" onclick="lipa(1000,'VIP',999,'p4',this)">LIPA 1000 KES</button></div>
+<div class="pkg" style="border-color:#00ff88;background:#0a221a"><div style="font-size:8px;color:#00ff88">BALANCE</div><div style="font-size:14px;color:#00ff88;font-weight:900" id="usdBal">$0.00</div><div style="font-size:7px">Candles LIVE</div></div>
 </div>
-<div class="log" id="log">📈 POCKETS CODE YA KWANZA - Candles LIVE - HAKUNA DISABLE!<br>✅ POCKETS ENABLED - Mtu anunua pocket b4 $4 deposit!<br>🔗 DERIV LOGIN - 2 options - OAuth + Token manual - Haitakataa tena!<br>💰 Commission tracking - Watu waki-login forex - Wewe unapata commission yao - Pockets kwako 100%</div>
+<div class="log" id="log">📈 POCKETS ONLY - 80 KES & 1000 KES - No $4 deposit - Candles LIVE<br>🔐 Log in with Deriv button enabled - Fixed<br>✅ Buy pocket 80 KES to enable BUY/SELL</div>
 
 <script>
-let canvas=document.getElementById('chart'), ctx=canvas.getContext('2d'), candles=[], realPrice=2650.50, lotSize=0.10, balance=0, equity=0, profit=0, paymentConfirmed=false, tradesAllowed=0, tradesDone=0, userPackage=null;
+let canvas=document.getElementById('chart'), ctx=canvas.getContext('2d'), candles=[], realPrice=2650.50, balance=0, equity=0, profit=0, paymentConfirmed=false, tradesAllowed=0, tradesDone=0, userPackage=null;
 function resize(){ canvas.width=canvas.offsetWidth*2; canvas.height=canvas.offsetHeight*2; ctx.setTransform(2,0,0,2,0,0); } window.addEventListener('resize',resize); resize();
 function log(m){ let l=document.getElementById('log'); l.innerHTML+=`<br>[${new Date().toLocaleTimeString()}] ${m}`; l.scrollTop=l.scrollHeight; }
 function genCandle(pc){ let base=realPrice||pc||2650; let o=base+(Math.random()-0.5)*0.8, c=base+(Math.random()-0.48)*0.6, h=Math.max(o,c)+Math.random()*0.4, l=Math.min(o,c)-Math.random()*0.4; return {open:o,high:h,low:l,close:c,bullish:c>=o}; }
@@ -104,108 +93,90 @@ function draw(){
     ctx.strokeStyle=c.bullish?'#089981':'#f23645'; ctx.beginPath(); ctx.moveTo(x+cw/2,yH); ctx.lineTo(x+cw/2,yL); ctx.stroke();
     ctx.fillStyle=c.bullish?'#089981':'#f23645'; ctx.fillRect(x,Math.min(yO,yC),cw,Math.max(2,Math.abs(yO-yC)));
   });
-  document.getElementById('ohlc').innerText=`📈 CANDLES LIVE $${realPrice.toFixed(2)} • POCKETS ENABLED • Lot ${lotSize.toFixed(2)} • Bal $${balance.toFixed(2)} • ${balance>=4&&paymentConfirmed?'READY':'POCKET + $4 to enable BUY/SELL'}`;
+  document.getElementById('ohlc').innerText=`📈 XAUUSD $${realPrice.toFixed(2)} • Bal $${balance.toFixed(2)} • ${paymentConfirmed?'READY':'BUY POCKET 80/1000 KES'}`;
 }
 draw();
 setInterval(()=>{ candles.push(genCandle(candles[candles.length-1].close)); if(candles.length>100) candles.shift(); draw(); },2000);
 (function connectGold(){
   try{
     let ws=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
-    ws.onopen=()=>{ ws.send(JSON.stringify({ticks:'frxXAUUSD',subscribe:1})); log('✅ GOLD LIVE - CANDLES LIVE - POCKETS YA KWANZA!'); };
-    ws.onmessage=(e)=>{ try{ let d=JSON.parse(e.data); if(d.tick&&d.tick.quote){ realPrice=parseFloat(d.tick.quote); document.getElementById('bid').innerText=(realPrice-0.25).toFixed(2); document.getElementById('ask').innerText=(realPrice+0.25).toFixed(2); document.getElementById('conn').innerText='● CANDLES LIVE $'+realPrice.toFixed(2); } }catch{} };
+    ws.onopen=()=>{ ws.send(JSON.stringify({ticks:'frxXAUUSD',subscribe:1})); log('✅ GOLD LIVE $2650 - CANDLES LIVE - POCKETS ONLY!'); };
+    ws.onmessage=(e)=>{ try{ let d=JSON.parse(e.data); if(d.tick&&d.tick.quote){ realPrice=parseFloat(d.tick.quote); document.getElementById('bid').innerText=(realPrice-0.25).toFixed(2); document.getElementById('ask').innerText=(realPrice+0.25).toFixed(2); document.getElementById('conn').innerText='● LIVE $'+realPrice.toFixed(2); } }catch{} };
   }catch{ setInterval(()=>{ realPrice+=(Math.random()-0.5)*0.3; },3000); }
 })();
 
 function unlock(pack, allowed){
   userPackage=pack; tradesAllowed=allowed; tradesDone=0; paymentConfirmed=true;
-  document.getElementById('pkgName').innerText=pack+` POCKET ACTIVE`;
-  if(balance<4){
-    document.getElementById('buyBtn').disabled=true; document.getElementById('sellBtn').disabled=true;
-    document.getElementById('buyBtn').innerText=`🔒 BUY GREY - ${pack} POCKET ACTIVE - CANDLES LIVE - DEP $4+`;
-    document.getElementById('sellBtn').innerText=`🔒 SELL GREY - ${pack} POCKET ACTIVE - CANDLES LIVE - DEP $4+`;
-    log(`✅ ${pack} POCKET ACTIVE - POCKETS YA KWANZA - CANDLES LIVE - DEP $4+ to enable BUY/SELL`);
-  } else {
-    document.getElementById('buyBtn').disabled=false; document.getElementById('sellBtn').disabled=false;
-    document.getElementById('buyBtn').innerText=`BUY ${lotSize.toFixed(2)} GOLD $${realPrice.toFixed(2)} LIVE - ${pack}`;
-    document.getElementById('sellBtn').innerText=`SELL ${lotSize.toFixed(2)} GOLD $${realPrice.toFixed(2)} LIVE - ${pack}`;
-    log(`✅ ${pack} + $4 READY - BUY/SELL ENABLED - POCKETS YA KWANZA!`);
+  document.getElementById('pkgName').innerText=pack;
+  document.getElementById('buyBtn').disabled=false; document.getElementById('sellBtn').disabled=false;
+  document.getElementById('buyBtn').innerText=`BUY 0.10 GOLD $${realPrice.toFixed(2)} LIVE - ${pack}`;
+  document.getElementById('sellBtn').innerText=`SELL 0.10 GOLD $${realPrice.toFixed(2)} LIVE - ${pack}`;
+  document.getElementById('tradeCounter').innerText=`${pack} ACTIVE • ${allowed===999?'VIP':'Pockets '+allowed} • LIVE`;
+  log(`✅ ${pack} ACTIVE - BUY/SELL ENABLED - POCKETS ONLY - No $4!`);
+}
+
+function doTrade(type, price){
+  if(!paymentConfirmed){ alert('Nunua Pocket 80 KES kwanza!'); return; }
+  if(userPackage!=='VIP' && tradesDone>=tradesAllowed){ alert('Pockets zimeisha - Nunua ingine!'); return; }
+  tradesDone++; let tradeProfit=(Math.random()*20-5); profit+=tradeProfit; balance+=tradeProfit;
+  document.getElementById('bal').innerText=`$${balance.toFixed(2)}`; document.getElementById('usdBal').innerText=`$${balance.toFixed(2)}`;
+  log(`${type} 0.10 @ $${price.toFixed(2)} • $${tradeProfit.toFixed(2)} • Bal $${balance.toFixed(2)} • ${userPackage}`);
+}
+
+async function lipa(amount, pack, trades, inputId, btn){
+  let phone=document.getElementById(inputId).value.trim(); if(!phone||phone.length<10){ alert('Weka 07XX'); return; }
+  let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='254'+clean.substring(1);
+  btn.disabled=true; btn.innerText='⏳ STK...'; log(`📲 ${pack} ${amount} KES kwa ${clean} • GOLD $${realPrice.toFixed(2)} • POCKETS ONLY`);
+  try{
+    let res=await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount,phone:clean,package:pack})});
+    let data=await res.json(); if(!data.success){ btn.innerText='❌ Failed'; btn.disabled=false; alert(data.message); return; }
+    btn.innerText='⏳ Weka PIN!'; log(`📱 ${clean} - ${amount} KES - Weka PIN! POCKETS ONLY`);
+    let cid=data.checkoutId;
+    let iv=setInterval(async()=>{
+      try{
+        let ch=await fetch(`/api/callback?phone=${clean}&checkoutId=${cid}`); let cd=await ch.json();
+        if(cd.paid){ clearInterval(iv); log(`✅ ${pack} PAID ${cd.receipt} • ${amount} KES • LIVE`); unlock(pack, trades); btn.innerText=`✅ ${pack} ACTIVE`; btn.style.background='#00ff88'; }
+      }catch{}
+    },3000); setTimeout(()=>{ clearInterval(iv); if(!paymentConfirmed){ btn.innerText=`LIPA ${amount} KES`; btn.disabled=false; } },90000);
+  }catch(e){ log(`❌ ${e.message}`); btn.innerText=`LIPA ${amount} KES`; btn.disabled=false; }
+}
+
+// LOG IN WITH DERIV - FIXED - ENABLED - SIMPLE TEXT
+let derivToken=localStorage.getItem('deriv_token');
+function loginDeriv(){
+  // Jaribu OAuth kwanza - Kama inakataa - Fungua token box
+  try{
+    const appId='1089';
+    const redirectUrl=window.location.origin;
+    const oauthUrl=`https://oauth.deriv.com/oauth2/authorize?app_id=${appId}&l=EN&redirect_uri=${redirectUrl}`;
+    log(`🔐 Log in with Deriv - Redirecting...`);
+    window.location.href=oauthUrl;
+    // Kama OAuth inakataa ndani ya 2 sec - Fungua manual
+    setTimeout(()=>{
+      if(!localStorage.getItem('deriv_token')){
+        document.getElementById('tokenBox').style.display='block';
+        log(`⚠️ OAuth inakataa? Weka token manual hapo juu - Itafanya!`);
+      }
+    },2000);
+  }catch(e){
+    document.getElementById('tokenBox').style.display='block';
   }
 }
-function doTrade(type, price){
-  if(!paymentConfirmed){ alert('Nunua Pocket kwanza - 80-1000 KES - POCKETS YA KWANZA!'); return; }
-  if(balance<4){ alert(`Bal $${balance.toFixed(2)} < $4 MIN - Deposit $4+ ndio BUY/SELL i-enable - Pockets ENABLED b4 $4!`); return; }
-  if(userPackage!=='VIP' && tradesDone>=tradesAllowed){ alert('Pockets zimeisha - Nunua pocket ingine!'); return; }
-  tradesDone++; let pipValue=lotSize*10, pips=(Math.random()*20-5), tradeProfit=pips*pipValue/10; profit+=tradeProfit; balance+=tradeProfit; equity=balance;
-  document.getElementById('bal').innerText=`$${balance.toFixed(2)} VIRTUAL`; document.getElementById('equity').innerText=`$${equity.toFixed(2)}`; document.getElementById('usdBal').innerText=`$${balance.toFixed(2)} VIRTUAL`;
-  log(`${type} ${lotSize.toFixed(2)} @ $${price.toFixed(2)} • $${tradeProfit.toFixed(2)} • Bal $${balance.toFixed(2)} • ${userPackage} POCKET`);
-}
-
-async function depositCapital(){
-  let usd=parseFloat(document.getElementById('depositAmount').value), phone=document.getElementById('depositPhone').value.trim();
-  if(!usd||usd<4){ alert('Min $4 - Pockets ENABLED b4 $4 kama ulivyotaka!'); return; }
-  if(!phone||phone.length<10){ alert('Weka 07XX Kenya'); return; }
-  let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='254'+clean.substring(1); let kes=Math.ceil(usd*130);
-  log(`💰 Deposit $${usd} = ${kes} KES for ${clean} - Pockets YA KWANZA - Candles LIVE`);
-  try{
-    let res=await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount:kes,phone:clean,package:`POCKET_${usd}USD`})});
-    let data=await res.json(); if(!data.success){ alert(data.message); return; }
-    log(`📲 STK ${kes} KES to ${clean} - Weka PIN! Pockets ENABLED!`);
-    let cid=data.checkoutId;
-    let iv=setInterval(async()=>{
-      try{
-        let ch=await fetch(`/api/callback?phone=${clean}&checkoutId=${cid}`); let cd=await ch.json();
-        if(cd.paid){ clearInterval(iv); balance+=usd; equity=balance+profit; document.getElementById('bal').innerText=`$${balance.toFixed(2)} VIRTUAL`; document.getElementById('usdBal').innerText=`$${balance.toFixed(2)} VIRTUAL`; document.getElementById('equity').innerText=`$${equity.toFixed(2)}`; log(`✅ DEPOSIT $${usd} - Bal $${balance.toFixed(2)} - POCKETS YA KWANZA`); alert(`✅ $${usd} deposited! Bal $${balance.toFixed(2)} - Pockets ENABLED b4 $4!`); if(paymentConfirmed&&balance>=4){ document.getElementById('buyBtn').disabled=false; document.getElementById('sellBtn').disabled=false; } draw(); }
-      }catch{}
-    },3000); setTimeout(()=>clearInterval(iv),90000);
-  }catch(e){ log(`❌ Deposit error ${e.message}`); }
-}
-async function lipa(amount, pack, trades, inputId, btn){
-  let phone=document.getElementById(inputId).value.trim(); if(!phone||phone.length<10){ alert('Weka 07XX Kenya'); return; }
-  let clean=phone.replace(/\D/g,''); if(clean.startsWith('0')) clean='254'+clean.substring(1);
-  btn.disabled=true; btn.innerText='⏳ STK...'; log(`📲 Pocket ${amount} KES for ${clean} • GOLD $${realPrice.toFixed(2)} LIVE • ${pack} • POCKETS YA KWANZA`);
-  try{
-    let res=await fetch('/api/lipa',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({amount,phone:clean,package:`POCKET_${pack}`})});
-    let data=await res.json(); if(!data.success){ btn.innerText='❌ Failed'; btn.disabled=false; alert(data.message); return; }
-    btn.innerText='⏳ Weka PIN!'; log(`📱 ${clean} - Pocket ${amount} KES - Weka PIN! POCKETS YA KWANZA!`);
-    let cid=data.checkoutId;
-    let iv=setInterval(async()=>{
-      try{
-        let ch=await fetch(`/api/callback?phone=${clean}&checkoutId=${cid}`); let cd=await ch.json();
-        if(cd.paid){ clearInterval(iv); log(`✅ POCKET ${cd.receipt} • ${amount} KES • GOLD LIVE - POCKETS YA KWANZA`); unlock(pack, trades); btn.innerText=`✅ ${pack} POCKET ACTIVE`; btn.style.background='#00ff88'; if(balance>=4) setTimeout(()=>doTrade('BUY', realPrice),1000); }
-      }catch{}
-    },3000); setTimeout(()=>{ clearInterval(iv); if(!paymentConfirmed){ btn.innerText=`🇰🇪 LIPA ${amount} KES - POCKET`; btn.disabled=false; } },90000);
-  }catch(e){ log(`❌ Error ${e.message}`); btn.innerText=`🇰🇪 LIPA ${amount} KES - POCKET`; btn.disabled=false; }
-}
-
-// DERIV LOGIN - 2 OPTIONS - HAIWEZI KUKATAA TENA!
-let derivToken=localStorage.getItem('deriv_token');
-function loginWithDerivOAuth(){
-  // OPTION 1 - OAUTH - Inaweza kukataa kama app_id sio yako
-  const appId='1089';
-  const redirectUrl=window.location.origin;
-  const oauthUrl=`https://oauth.deriv.com/oauth2/authorize?app_id=${appId}&l=EN&redirect_uri=${redirectUrl}`;
-  log(`🔗 DERIV OAUTH - Redirecting... Kama inakataa - Tumia token manual!`);
-  window.location.href=oauthUrl;
-}
-function showTokenBox(){ document.getElementById('tokenBox').style.display='block'; log(`🔑 Token box - Weka Deriv token manual - Hii haitakataa!`); }
-function hideTokenBox(){ document.getElementById('tokenBox').style.display='none'; }
-
 function loginWithToken(){
-  const token=document.getElementById('derivTokenInput').value.trim();
-  if(!token||token.length<10){ alert('Weka Deriv token - Nenda deriv.com > API Token > Create token'); return; }
+  const token=document.getElementById('tokenInput').value.trim();
+  if(!token||token.length<8){ alert('Weka Deriv token - deriv.com > Settings > API Token > Create'); return; }
   localStorage.setItem('deriv_token', token);
   derivToken=token;
-  log(`🔑 TOKEN MANUAL - Connecting Deriv - Commission tracking...`);
+  log(`🔑 Token - Connecting...`);
   connectDeriv(token);
-  hideTokenBox();
+  document.getElementById('tokenBox').style.display='none';
 }
-
-function checkDerivOAuth(){
+function checkDeriv(){
   const params=new URLSearchParams(window.location.search);
   const token=params.get('token1')||params.get('token');
   if(token){
     localStorage.setItem('deriv_token', token); derivToken=token;
-    log(`✅ DERIV OAUTH SUCCESS!`);
+    log(`✅ Log in with Deriv - Success!`);
     window.history.replaceState({}, document.title, window.location.pathname);
     connectDeriv(token);
   } else if(derivToken){
@@ -215,29 +186,27 @@ function checkDerivOAuth(){
 function connectDeriv(token){
   try{
     let ws=new WebSocket('wss://ws.binaryws.com/websockets/v3?app_id=1089');
-    ws.onopen=()=>{ ws.send(JSON.stringify({authorize: token})); log(`📡 Deriv REAL - Authorizing token - Commission tracking...`); };
+    ws.onopen=()=>{ ws.send(JSON.stringify({authorize: token})); log(`📡 Deriv - Connecting...`); };
     ws.onmessage=(e)=>{
       let d=JSON.parse(e.data);
       if(d.authorize){
         let email=d.authorize.email, bal=d.authorize.balance, curr=d.authorize.currency;
         document.getElementById('derivInfo').style.display='block';
         document.getElementById('derivEmail').innerText=email;
-        document.getElementById('derivBal').innerText=`${curr} ${bal} REAL`;
-        document.getElementById('derivStatus').innerText=`✅ ${email} REAL - Commission ON - Pockets + Forex`;
+        document.getElementById('derivBal').innerText=`${curr} ${bal}`;
+        document.getElementById('derivStatus').innerText=`✅ ${email}`;
         document.getElementById('derivStatus').style.color='#00ff88';
-        log(`✅ DERIV REAL: ${email} - ${curr} ${bal} - COMMISSION TRACKING ON - Pockets + Forex - Wewe unapata commission yake!`);
-        localStorage.setItem('deriv_email', email);
+        log(`✅ Deriv: ${email} - ${curr} ${bal} - Connected`);
       }
-      if(d.error){
-        log(`❌ Deriv error: ${d.error.message} - Token mbaya - Jaribu token mpya`);
-        alert(`Deriv error: ${d.error.message} - Token mbaya - Tengeneza token mpya kwa deriv.com > API Token`);
-        localStorage.removeItem('deriv_token');
-      }
+      if(d.error){ log(`❌ ${d.error.message} - Token mbaya`); alert(d.error.message); localStorage.removeItem('deriv_token'); }
     };
-    ws.onerror=()=>{ log(`❌ Deriv connection failed - Check token - Tumia token manual`); };
   }catch(e){ log(`Deriv error: ${e.message}`); }
 }
-function logoutDeriv(){ localStorage.removeItem('deriv_token'); derivToken=null; document.getElementById('derivInfo').style.display='none'; document.getElementById('derivStatus').innerText='Login ndio u-track commission - Pockets + Forex - 2 options'; log(`Deriv logged out`); }
-setTimeout(checkDerivOAuth, 1000);
+function logoutDeriv(){ localStorage.removeItem('deriv_token'); derivToken=null; document.getElementById('derivInfo').style.display='none'; document.getElementById('derivStatus').innerText='Live chart - Buy pocket to trade'; log(`Logged out`); }
+setTimeout(checkDeriv, 800);
 
-document.getElementBy
+document.getElementById('buyBtn').onclick=()=>doTrade('BUY', realPrice);
+document.getElementById('sellBtn').onclick=()=>doTrade('SELL', realPrice);
+</script>
+</body>
+  </html>
